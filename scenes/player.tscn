@@ -1,9 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://cb5py51fx6kbe"]
+[gd_scene load_steps=20 format=3 uid="uid://cb5py51fx6kbe"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_417cw"]
 [ext_resource type="Script" path="res://scripts/player_camera.gd" id="2_86h0t"]
-
-[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_vgqmi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_id2bx"]
 
@@ -91,14 +89,51 @@ tracks/2/keys = {
 "values": [Vector3(-0.253, -0.674, 0.248), Vector3(-0.253, -0.674, -0.2)]
 }
 
+[sub_resource type="Animation" id="Animation_cq5gx"]
+resource_name = "landing"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_tithc"]
+resource_name = "jumping"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.0333333, 0.166667, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1.18921),
+"update": 0,
+"values": [Vector3(0, 0.774896, 0), Vector3(0, 0.774896, 0), Vector3(0, 0.3, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ffjwo"]
 _data = {
 "RESET": SubResource("Animation_o4yld"),
+"jumping": SubResource("Animation_tithc"),
+"landing": SubResource("Animation_cq5gx"),
 "walking": SubResource("Animation_7xbpw")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x7ww0"]
 animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qfvej"]
+animation = &"jumping"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vccq4"]
 animation = &"walking"
@@ -109,56 +144,49 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fnash"]
 xfade_time = 0.2
 reset = false
+advance_mode = 2
+advance_condition = &"walking"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_aondr"]
 xfade_time = 0.2
 reset = false
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ki4cf"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"jumping"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k22m2"]
+xfade_time = 0.1
+advance_mode = 2
+advance_condition = &"jumping"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gphqi"]
+xfade_time = 0.2
+reset = false
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"landing"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_vtbka"]
-states/RESET/node = SubResource("AnimationNodeAnimation_x7ww0")
-states/RESET/position = Vector2(335, 99)
 states/Start/position = Vector2(198, 100)
+states/idle/node = SubResource("AnimationNodeAnimation_x7ww0")
+states/idle/position = Vector2(341, 108)
+states/jumping/node = SubResource("AnimationNodeAnimation_qfvej")
+states/jumping/position = Vector2(649, 108)
 states/walking/node = SubResource("AnimationNodeAnimation_vccq4")
-states/walking/position = Vector2(526, 100)
-transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_yw6l3"), "RESET", "walking", SubResource("AnimationNodeStateMachineTransition_fnash"), "walking", "RESET", SubResource("AnimationNodeStateMachineTransition_aondr")]
+states/walking/position = Vector2(506, 52)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_yw6l3"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_fnash"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_aondr"), "walking", "jumping", SubResource("AnimationNodeStateMachineTransition_ki4cf"), "idle", "jumping", SubResource("AnimationNodeStateMachineTransition_k22m2"), "jumping", "idle", SubResource("AnimationNodeStateMachineTransition_gphqi")]
+graph_offset = Vector2(10, 16)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_417cw")
 
-[node name="SeparationRay" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.544009, -1, 0)
-shape = SubResource("SeparationRayShape3D_vgqmi")
-disabled = true
-
-[node name="SeparationRay2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.426567, -1, -0.32947)
-shape = SubResource("SeparationRayShape3D_vgqmi")
-disabled = true
-
-[node name="SeparationRay3" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.384123, -1, -0.338308)
-shape = SubResource("SeparationRayShape3D_vgqmi")
-disabled = true
-
-[node name="SeparationRay4" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.00607431, -1, -0.494893)
-shape = SubResource("SeparationRayShape3D_vgqmi")
-disabled = true
-
-[node name="SeparationRay5" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.00276291, -1, 0.556742)
-shape = SubResource("SeparationRayShape3D_vgqmi")
-disabled = true
-
-[node name="SeparationRay6" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.359566, -1, 0.388834)
-shape = SubResource("SeparationRayShape3D_vgqmi")
-disabled = true
-
-[node name="SeparationRay7" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.356254, -1, 0.379996)
-shape = SubResource("SeparationRayShape3D_vgqmi")
-disabled = true
+[node name="QueueJump" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+target_position = Vector3(0, -0.2, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.774896, 0)
@@ -201,3 +229,7 @@ libraries = {
 active = false
 tree_root = SubResource("AnimationNodeStateMachine_vtbka")
 anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/idle = false
+parameters/conditions/jumping = false
+parameters/conditions/landing = false
+parameters/conditions/walking = false

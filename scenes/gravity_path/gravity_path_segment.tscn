@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bofj3ngfhiyqw"]
+
+[ext_resource type="Script" path="res://scripts/gravity_path_segment.gd" id="1_sfddb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kv2bq"]
+size = Vector3(4, 1, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gyy6w"]
+size = Vector3(4, 1, 0.5)
+
+[node name="GravityPathSegment" type="Area3D"]
+script = ExtResource("1_sfddb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_kv2bq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 512
+mesh = SubResource("BoxMesh_gyy6w")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
