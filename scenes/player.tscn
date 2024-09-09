@@ -1,0 +1,203 @@
+[gd_scene load_steps=15 format=3 uid="uid://cb5py51fx6kbe"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_417cw"]
+[ext_resource type="Script" path="res://scripts/player_camera.gd" id="2_86h0t"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_vgqmi"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_id2bx"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_j58aa"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="Animation" id="Animation_o4yld"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.774896, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RightLeg:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.218, -0.674, 0.053)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftLeg:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.253, -0.674, 0.053)]
+}
+
+[sub_resource type="Animation" id="Animation_7xbpw"]
+resource_name = "walking"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.533333, 0.7),
+"transitions": PackedFloat32Array(1, 1.18921, 1, 1.18921, 1),
+"update": 0,
+"values": [Vector3(0, 0.774896, 0), Vector3(0, 0.488113, 0), Vector3(0, 0.729605, 0), Vector3(0, 0.488113, 0), Vector3(0, 0.774896, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RightLeg:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.218, -0.674, -0.212), Vector3(0.218, -0.674, 0.254)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftLeg:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.253, -0.674, 0.248), Vector3(-0.253, -0.674, -0.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ffjwo"]
+_data = {
+"RESET": SubResource("Animation_o4yld"),
+"walking": SubResource("Animation_7xbpw")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x7ww0"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vccq4"]
+animation = &"walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yw6l3"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fnash"]
+xfade_time = 0.2
+reset = false
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_aondr"]
+xfade_time = 0.2
+reset = false
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_vtbka"]
+states/RESET/node = SubResource("AnimationNodeAnimation_x7ww0")
+states/RESET/position = Vector2(335, 99)
+states/Start/position = Vector2(198, 100)
+states/walking/node = SubResource("AnimationNodeAnimation_vccq4")
+states/walking/position = Vector2(526, 100)
+transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_yw6l3"), "RESET", "walking", SubResource("AnimationNodeStateMachineTransition_fnash"), "walking", "RESET", SubResource("AnimationNodeStateMachineTransition_aondr")]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_417cw")
+
+[node name="SeparationRay" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.544009, -1, 0)
+shape = SubResource("SeparationRayShape3D_vgqmi")
+disabled = true
+
+[node name="SeparationRay2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.426567, -1, -0.32947)
+shape = SubResource("SeparationRayShape3D_vgqmi")
+disabled = true
+
+[node name="SeparationRay3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.384123, -1, -0.338308)
+shape = SubResource("SeparationRayShape3D_vgqmi")
+disabled = true
+
+[node name="SeparationRay4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.00607431, -1, -0.494893)
+shape = SubResource("SeparationRayShape3D_vgqmi")
+disabled = true
+
+[node name="SeparationRay5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.00276291, -1, 0.556742)
+shape = SubResource("SeparationRayShape3D_vgqmi")
+disabled = true
+
+[node name="SeparationRay6" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.359566, -1, 0.388834)
+shape = SubResource("SeparationRayShape3D_vgqmi")
+disabled = true
+
+[node name="SeparationRay7" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.356254, -1, 0.379996)
+shape = SubResource("SeparationRayShape3D_vgqmi")
+disabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.774896, 0)
+cull_mask = 1048063
+script = ExtResource("2_86h0t")
+player = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_id2bx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.740597, 0)
+cast_shadow = 3
+mesh = SubResource("SphereMesh_j58aa")
+skeleton = NodePath("../CSGPolygon3D")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.479225, 0)
+cast_shadow = 3
+polygon = PackedVector2Array(-0.358295, -0.191964, -0.357787, 0.187377, -0.22974, 0.289272, 0.190963, 0.284327, 0.339324, 0.173923, 0.348236, -0.169837, 0.271998, -0.246467, -0.217392, -0.242975)
+
+[node name="RightLeg" type="CSGPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.218, -0.674, 0.053)
+cast_shadow = 3
+polygon = PackedVector2Array(-0.130883, -0.116189, -0.120742, 0.0823997, -0.125738, 0.251277, 0.00111836, 0.288966, 0.15972, 0.246341, 0.150427, 0.0821612, 0.167384, -0.109473, 0.00861851, -0.171928)
+depth = 0.2
+
+[node name="LeftLeg" type="CSGPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.253, -0.674, 0.053)
+cast_shadow = 3
+polygon = PackedVector2Array(-0.130883, -0.116189, -0.120742, 0.0823997, -0.125738, 0.251277, 0.00111836, 0.288966, 0.15972, 0.246341, 0.150427, 0.0821612, 0.167384, -0.109473, 0.00861851, -0.171928)
+depth = 0.2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ffjwo")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+active = false
+tree_root = SubResource("AnimationNodeStateMachine_vtbka")
+anim_player = NodePath("../AnimationPlayer")

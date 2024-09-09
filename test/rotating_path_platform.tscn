@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=3 uid="uid://bsl45uelr1ldf"]
+
+[ext_resource type="PackedScene" uid="uid://cb5py51fx6kbe" path="res://scenes/player.tscn" id="1_w12gb"]
+[ext_resource type="PackedScene" uid="uid://ceyo8i80fjvmb" path="res://scenes/headlamp.tscn" id="2_w00ln"]
+
+[sub_resource type="Curve3D" id="Curve3D_6uvdq"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.706671, -0.617465, -0.167462, 0, 0, 0, 0, 0, 0, 7.6788, -0.573785, 0.244537, 0, 0, 0, 0, 0, 0, 14.3809, -0.579848, 0.603087, 0, 0, 0, 0, 0, 0, 27.6609, 0.316186, 0.714349, 0, 0, 0, 0, 0, 0, 41.2242, 1.02119, 1.12495),
+"tilts": PackedFloat32Array(0, -0.610687, -2.49136, 2.18621, -0.0408206)
+}
+point_count = 5
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_sw1ql"]
+
+[sub_resource type="Sky" id="Sky_y576e"]
+sky_material = SubResource("PhysicalSkyMaterial_sw1ql")
+
+[sub_resource type="Environment" id="Environment_iwk0b"]
+background_mode = 1
+background_color = Color(0.453906, 0.777499, 0.944715, 1)
+sky = SubResource("Sky_y576e")
+ambient_light_energy = 0.2
+glow_intensity = 1.15
+glow_bloom = 0.47
+glow_hdr_threshold = 0.79
+glow_hdr_scale = 0.17
+glow_hdr_luminance_cap = 0.22
+fog_mode = 1
+fog_density = 1.0
+
+[node name="TestScene" type="Node3D"]
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.101061, 0.424734, -0.366446)
+curve = SubResource("Curve3D_6uvdq")
+
+[node name="Floor" type="CSGPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.479225, 0)
+use_collision = true
+polygon = PackedVector2Array(-0.423028, -0.238816, -0.488231, 0.359647, -0.585766, 2.9017, 0.0603573, 2.96964, 0.119776, 0.277761, 0.146555, -0.233519, 0.249278, -1.69627, -0.389779, -1.52842)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="Walls" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(-2.17606, -0.0209993, -2.04553, 5.16056, 2.01494, 5.13869, 2.41846, -0.0337156, 1.89247, 0.118081, 1.50863, 3.82564, -1.44526, 3.81798, -1.72404, 0.0659385)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="Player" parent="." instance=ExtResource("1_w12gb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99736, 1.46486, -0.828479)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_iwk0b")
+
+[node name="Headlamp" parent="." instance=ExtResource("2_w00ln")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 5.29954, 3.86415, -1.28147)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.128311, 0, -0.991734, 0, 1, 0, 0.991734, 0, 0.128311, -5.0645, 2.14987, 0)
+current = true
