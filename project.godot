@@ -63,6 +63,9 @@ interact={
 
 3d_render/layer_1="Floor"
 3d_render/layer_10="Editor"
+3d_physics/layer_1="Level"
+3d_physics/layer_2="Interactable"
+3d_physics/layer_3="Player"
 
 [physics]
 

@@ -1,0 +1,155 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8ioqv7yy70el"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_if314"]
+albedo_color = Color(0.2044, 0.40588, 0.73, 1)
+metallic = 0.92
+metallic_specular = 0.58
+roughness = 0.56
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7fdag"]
+size = Vector3(0.8, 3, 1.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3nq67"]
+albedo_color = Color(0.273, 0.41665, 0.78, 1)
+metallic = 0.9
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nclp8"]
+albedo_color = Color(0.3, 0.72, 1, 1)
+metallic = 0.7
+
+[node name="Locker" type="CSGBox3D"]
+size = Vector3(0.8, 3, 1.4)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_7fdag")
+
+[node name="Cut" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.100002, 0.1, -9.53674e-07)
+operation = 2
+use_collision = true
+size = Vector3(0.8, 2.6, 1.2)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="DoorBtm" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.375, -0.65, 0)
+use_collision = true
+size = Vector3(0.1, 1.3, 1.2)
+material = SubResource("StandardMaterial3D_3nq67")
+
+[node name="Slot1" type="CSGBox3D" parent="DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.475, 0)
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot2" type="CSGBox3D" parent="DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.375, 0)
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot3" type="CSGBox3D" parent="DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.275, 0)
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot4" type="CSGBox3D" parent="DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.425, 0)
+operation = 2
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot5" type="CSGBox3D" parent="DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.325, 0)
+operation = 2
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot6" type="CSGBox3D" parent="DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.225, 0)
+operation = 2
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Hinge1" type="CSGBox3D" parent="DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125008, 0.3375, -0.6125)
+use_collision = true
+size = Vector3(0.125, 0.425, 0.025)
+material = SubResource("StandardMaterial3D_3nq67")
+
+[node name="Hinge2" type="CSGBox3D" parent="DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125008, -0.3375, -0.6125)
+use_collision = true
+size = Vector3(0.125, 0.425, 0.025)
+material = SubResource("StandardMaterial3D_3nq67")
+
+[node name="Divider" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0500001, 0)
+use_collision = true
+size = Vector3(0.8, 0.1, 1.2)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="DoorTop" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.375, 0.75, 0)
+use_collision = true
+size = Vector3(0.1, 1.3, 1.2)
+material = SubResource("StandardMaterial3D_3nq67")
+
+[node name="Hinge1" type="CSGBox3D" parent="DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125008, 0.3375, -0.6125)
+use_collision = true
+size = Vector3(0.125, 0.425, 0.025)
+material = SubResource("StandardMaterial3D_3nq67")
+
+[node name="Hinge2" type="CSGBox3D" parent="DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125008, -0.3375, -0.6125)
+use_collision = true
+size = Vector3(0.125, 0.425, 0.025)
+material = SubResource("StandardMaterial3D_3nq67")
+
+[node name="Slot1" type="CSGBox3D" parent="DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.475, 0)
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot2" type="CSGBox3D" parent="DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.375, 0)
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot3" type="CSGBox3D" parent="DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.275, 0)
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot4" type="CSGBox3D" parent="DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.425, 0)
+operation = 2
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot5" type="CSGBox3D" parent="DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.325, 0)
+operation = 2
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot6" type="CSGBox3D" parent="DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.225, 0)
+operation = 2
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")

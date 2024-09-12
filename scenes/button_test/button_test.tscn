@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://beyyem8dtxifg"]
+[gd_scene load_steps=9 format=3 uid="uid://beyyem8dtxifg"]
 
 [ext_resource type="PackedScene" uid="uid://dibqov0e7kked" path="res://scenes/button_test/button.tscn" id="2_u4khw"]
 [ext_resource type="PackedScene" uid="uid://b4uw8dmhdfulb" path="res://scenes/button_test/door.tscn" id="3_32wn4"]
 [ext_resource type="PackedScene" uid="uid://cb5py51fx6kbe" path="res://scenes/player.tscn" id="3_c0ey7"]
+[ext_resource type="PackedScene" uid="uid://bamjr27weq6br" path="res://scenes/world_object/door.tscn" id="4_t2tpo"]
+[ext_resource type="PackedScene" uid="uid://cbdcc8kcb87ky" path="res://scenes/water_level/environment/locker_door_left.tscn" id="5_41kms"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qwima"]
 size = Vector3(60, 2, 60)
@@ -42,5 +44,10 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 2.50266, 4.62452)
 
 [node name="Player" parent="." instance=ExtResource("3_c0ey7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.76484, 0)
+
+[node name="CSGBox3D" parent="." instance=ExtResource("4_t2tpo")]
+
+[node name="Door2" parent="." instance=ExtResource("5_41kms")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 2)
 
 [connection signal="interacted" from="Button" to="Door" method="open"]

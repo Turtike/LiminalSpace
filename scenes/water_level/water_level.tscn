@@ -1,43 +1,1055 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1gwks6y6hcdt"]
+[gd_scene load_steps=27 format=3 uid="uid://c1gwks6y6hcdt"]
 
 [ext_resource type="PackedScene" uid="uid://cb5py51fx6kbe" path="res://scenes/player.tscn" id="1_bo5vd"]
-[ext_resource type="PackedScene" uid="uid://ceyo8i80fjvmb" path="res://scenes/world_object/headlamp.tscn" id="1_y6udq"]
+[ext_resource type="PackedScene" uid="uid://c8ioqv7yy70el" path="res://scenes/water_level/environment/locker.tscn" id="1_bu0f7"]
+[ext_resource type="Script" path="res://scenes/water_level/locker_room_event.gd" id="1_kabkl"]
+[ext_resource type="Script" path="res://scripts/flicker.gd" id="1_vrses"]
+[ext_resource type="PackedScene" uid="uid://f56kse3kspb0" path="res://scenes/water_level/environment/palm_tree.tscn" id="2_kihij"]
+[ext_resource type="AudioStream" uid="uid://drmwhih7jv2cd" path="res://sounds/secret.wav" id="2_v67ae"]
+[ext_resource type="PackedScene" uid="uid://cbdcc8kcb87ky" path="res://scenes/water_level/environment/locker_door_left.tscn" id="2_ytu5h"]
+[ext_resource type="PackedScene" uid="uid://bamjr27weq6br" path="res://scenes/world_object/door.tscn" id="3_bggyu"]
+[ext_resource type="Script" path="res://scenes/interactable_scenes/interactable_obj.gd" id="3_brnjj"]
+[ext_resource type="PackedScene" uid="uid://c4qq4sxjo2o4y" path="res://scenes/water_level/environment/locker_door_right.tscn" id="3_nlerh"]
+[ext_resource type="PackedScene" uid="uid://8wffqncs5t2s" path="res://scenes/water_level/environment/tower.tscn" id="5_norwc"]
+[ext_resource type="Material" uid="uid://bqi5cnohe0alv" path="res://shaders/water_shader_material.tres" id="9_708at"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yj2o3"]
+albedo_color = Color(0.81, 0.36774, 0.1782, 1)
+metallic = 0.7
+metallic_specular = 1.0
+roughness = 0.77
+rim_enabled = true
+rim = 0.29
+clearcoat_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hpgrm"]
+albedo_color = Color(0.3822, 0.98, 0.750843, 1)
+metallic_specular = 0.58
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2rojl"]
-albedo_color = Color(1, 0.839667, 0.74, 1)
+albedo_color = Color(0.74, 1, 0.987, 1)
+metallic_specular = 0.58
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x1ebn"]
+transparency = 1
+albedo_color = Color(0.47, 1, 0.47, 0.352941)
+metallic = 0.15
+metallic_specular = 0.55
+roughness = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8qxk1"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.8
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vtffs"]
+radius = 0.704668
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_if314"]
+albedo_color = Color(0.2044, 0.40588, 0.73, 1)
+metallic = 0.92
+metallic_specular = 0.58
+roughness = 0.56
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3nq67"]
+albedo_color = Color(0.273, 0.41665, 0.78, 1)
+metallic = 0.9
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nclp8"]
+albedo_color = Color(0.3, 0.72, 1, 1)
+metallic = 0.7
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7egxl"]
+size = Vector3(2.54962, 1.30984, 2.08301)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e12bj"]
+albedo_color = Color(0.1508, 0.394013, 0.58, 1)
+metallic_specular = 0.58
+
+[sub_resource type="Curve3D" id="Curve3D_d1036"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.0162992, 0, -0.0119996, 4.2, 1.9, -1.5, -4.2, -1.9, 1.5, -16, -3, 1.6, 2, -1, -6, -2, 1, 6, -31, -10, 14.6, -3, -4, 0, 3, 4, 0, -14, 1, 26.6, 4, -2, 5, -4, 2, -5, -16, 14, 14.6, -1, 1, 6, 1, -1, -6, -28, 15, -5.4, -3, 2, 2, 3, -2, -2, -23, 10, -17.4, 0, 0, 0, 0, 0, 0, -13, 9, -18.4),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 9
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_su3x5"]
+material = ExtResource("9_708at")
+size = Vector2(45, 40)
+subdivide_width = 45
+subdivide_depth = 40
 
 [sub_resource type="Environment" id="Environment_dm0hx"]
 background_mode = 1
-background_color = Color(0.352962, 0.367031, 0.359755, 1)
+background_color = Color(1, 1, 1, 1)
+tonemap_exposure = 0.1
 
 [node name="WaterLevel" type="Node3D"]
 process_mode = 1
 
-[node name="Ground" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.5, 0)
+[node name="Lobby" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.38056, -0.5, 0)
+
+[node name="Desk" type="Node3D" parent="Lobby"]
+
+[node name="Ground2" type="CSGBox3D" parent="Lobby/Desk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.88055, 1.30848, -7.88911)
 use_collision = true
-size = Vector3(125, 1, 81)
+size = Vector3(19, 1.84717, 1)
+material = SubResource("StandardMaterial3D_yj2o3")
+
+[node name="Ground5" type="CSGBox3D" parent="Lobby/Desk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.88055, 2.34217, -7.87641)
+use_collision = true
+size = Vector3(19, 0.21925, 1.8457)
+material = SubResource("StandardMaterial3D_yj2o3")
+
+[node name="Ground4" type="CSGBox3D" parent="Lobby/Desk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8806, 1.3252, -9.70715)
+use_collision = true
+size = Vector3(1, 1.82384, 0.225113)
+material = SubResource("StandardMaterial3D_yj2o3")
+
+[node name="Ground6" type="CSGBox3D" parent="Lobby/Desk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8806, 2.34151, -9.52574)
+use_collision = true
+size = Vector3(1, 0.211269, 1.48048)
+material = SubResource("StandardMaterial3D_yj2o3")
+
+[node name="Ground7" type="CSGBox3D" parent="Lobby/Desk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.114535, 1.3252, -9.70715)
+use_collision = true
+size = Vector3(1, 1.82384, 0.225113)
+material = SubResource("StandardMaterial3D_yj2o3")
+
+[node name="Ground8" type="CSGBox3D" parent="Lobby/Desk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.114535, 2.34151, -9.52574)
+use_collision = true
+size = Vector3(1, 0.211269, 1.48048)
+material = SubResource("StandardMaterial3D_yj2o3")
+
+[node name="Ground" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.11945, 0, 0)
+use_collision = true
+size = Vector3(29, 1, 30)
+material = SubResource("StandardMaterial3D_hpgrm")
+
+[node name="Wall2" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.71945, 4.5, 0.0136719)
+use_collision = true
+size = Vector3(1, 8, 29.9727)
 material = SubResource("StandardMaterial3D_2rojl")
 
-[node name="Roof" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 14.5, 0)
+[node name="Door" type="CSGBox3D" parent="Lobby/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.90015, -6.9)
 use_collision = true
-size = Vector3(125, 1, 81)
+size = Vector3(1.4, 3.19971, 2.2)
+material = SubResource("StandardMaterial3D_2rojl")
 
-[node name="Headlamp" parent="Roof" instance=ExtResource("1_y6udq")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -1, 0)
+[node name="DoorCutout" type="CSGBox3D" parent="Lobby/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, -6.9)
+operation = 2
+size = Vector3(3.4, 3, 1.8)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Glass" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.09955, 4.5, -14.5)
+use_collision = true
+size = Vector3(26.645, 8, 1)
+material = SubResource("StandardMaterial3D_x1ebn")
+
+[node name="Roof" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.38056, 9, -0.5)
+use_collision = true
+size = Vector3(28, 1, 31)
+
+[node name="Roof2" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.98056, 8.3, 0.5)
+use_collision = true
+size = Vector3(26.8, 0.4, 29)
+
+[node name="Roof3" type="CSGBox3D" parent="Lobby/Roof2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, -0.1)
+operation = 2
+use_collision = true
+size = Vector3(25.4, 0.4, 28)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Lobby/Roof2" groups=["lobby_lights"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.2, -0.168883, -0.5)
+visible = false
+light_energy = 14.465
+shadow_enabled = true
+omni_range = 108.256
+omni_attenuation = 1.005
+
+[node name="Light" type="SpotLight3D" parent="Lobby/Roof2" groups=["lobby_lights"]]
+transform = Transform3D(0.866025, -2.18557e-08, 0.5, -0.5, -3.78552e-08, 0.866025, 0, -1, -4.37114e-08, -5.8, -0.3, -6.5)
+visible = false
+spot_range = 20.0
+spot_angle = 43.692
+
+[node name="Light2" type="SpotLight3D" parent="Lobby/Roof2" groups=["lobby_lights"]]
+transform = Transform3D(0.965926, 1.13133e-08, -0.258819, 0.258819, -4.2222e-08, 0.965926, 0, -1, -4.37114e-08, 7.2, -0.3, -6.5)
+spot_range = 20.0
+spot_angle = 43.692
+
+[node name="Light5" type="SpotLight3D" parent="Lobby/Roof2" groups=["lobby_lights"]]
+transform = Transform3D(1, 8.58612e-16, -2.98023e-08, 2.87868e-08, -0.258819, 0.965926, -7.71341e-09, -0.965926, -0.258819, -0.8, 1.7, 1.5)
+spot_range = 20.0
+spot_angle = 52.3636
+
+[node name="Light3" type="SpotLight3D" parent="Lobby/Roof2" groups=["lobby_lights"]]
+transform = Transform3D(0.965926, 1.13133e-08, -0.258819, 0.258819, -4.2222e-08, 0.965926, 0, -1, -4.37114e-08, 7.2, -0.3, 8.5)
+spot_range = 20.0
+spot_angle = 43.692
+
+[node name="Light4" type="SpotLight3D" parent="Lobby/Roof2" groups=["lobby_lights"]]
+transform = Transform3D(0.965926, -1.13133e-08, 0.258819, -0.258819, -4.2222e-08, 0.965926, 0, -1, -4.37114e-08, -7.8, -0.3, 7.5)
+spot_range = 20.0
+spot_angle = 43.692
+
+[node name="Light6" type="SpotLight3D" parent="Lobby/Roof2" groups=["lobby_beginning_light"]]
+transform = Transform3D(0.853714, 2.27623e-08, -0.520741, 0.520741, -3.7317e-08, 0.853714, 0, -1, -4.37114e-08, 7.2, -0.3, 8.5)
+shadow_enabled = true
+spot_range = 12.706
+spot_attenuation = -0.38
+spot_angle = 43.692
+
+[node name="LockerRoom" type="Node3D" parent="." node_paths=PackedStringArray("red_light", "normal_light", "collect_sfx", "collectable")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.4, -0.5, 0)
+script = ExtResource("1_kabkl")
+red_light = NodePath("RedLight")
+normal_light = [NodePath("NormalLight"), NodePath("NormalLight2")]
+collect_sfx = NodePath("CollectSFX")
+collectable = NodePath("Collectable")
+
+[node name="CollectSFX" type="AudioStreamPlayer" parent="LockerRoom"]
+stream = ExtResource("2_v67ae")
+bus = &"SFX"
+
+[node name="Collectable" type="StaticBody3D" parent="LockerRoom"]
+collision_layer = 2
+script = ExtResource("3_brnjj")
+prompt_msg = "Grab [E]"
+
+[node name="Placeholder" type="MeshInstance3D" parent="LockerRoom/Collectable"]
+transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 4.35329, 4.2, -6.80246)
+mesh = SubResource("CylinderMesh_8qxk1")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LockerRoom/Collectable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.22358, 4.28817, -6.57826)
+shape = SubResource("SphereShape3D_vtffs")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LockerRoom/Collectable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.94261, 4.50914, -6.94514)
+shadow_enabled = true
+
+[node name="Area3D" type="Area3D" parent="LockerRoom"]
+
+[node name="NormalLight" type="SpotLight3D" parent="LockerRoom"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.35, 8.2, -7.2)
+light_energy = 9.962
+shadow_enabled = true
+spot_range = 14.6
+spot_angle = 66.3219
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LockerRoom/NormalLight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0518999)
+light_energy = 1.308
+light_indirect_energy = 16.0
+shadow_enabled = true
+omni_range = 25.0
+omni_attenuation = 1.005
+
+[node name="NormalLight2" type="SpotLight3D" parent="LockerRoom"]
+transform = Transform3D(0.968043, -1.09622e-08, 0.250785, -0.250785, -4.23145e-08, 0.968043, 0, -1, -4.37114e-08, -0.35, 8.2, 9.42153)
+light_energy = 9.962
+shadow_enabled = true
+spot_range = 14.6
+spot_angle = 66.3219
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LockerRoom/NormalLight2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0518999)
+light_energy = 1.308
+light_indirect_energy = 16.0
+shadow_enabled = true
+omni_range = 25.0
+omni_attenuation = 1.005
+
+[node name="RedLight" type="SpotLight3D" parent="LockerRoom"]
+transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, -0.35, 8.2, -14.2)
+light_color = Color(1, 0, 0, 1)
+light_energy = 21.05
+shadow_enabled = true
+spot_range = 14.6
+spot_attenuation = -0.1
+spot_angle = 66.3219
+script = ExtResource("1_vrses")
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LockerRoom/RedLight"]
+light_color = Color(1, 0.266667, 0, 1)
+light_energy = 1.308
+light_indirect_energy = 16.0
+shadow_enabled = true
+omni_range = 25.0
+omni_attenuation = 1.005
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="LockerRoom"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.35, 8.2, 9.4)
+light_energy = 2.16
+spot_range = 14.6
+spot_angle = 74.4264
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LockerRoom/SpotLight3D2"]
+light_energy = 0.0
+omni_range = 108.256
+omni_attenuation = 1.005
+
+[node name="Label3D" type="Label3D" parent="LockerRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.826736, 2.40357, 15.85)
+text = ".       ."
+
+[node name="Lockers" type="Node3D" parent="LockerRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.525, 2, 10.9)
+
+[node name="Locker2" parent="LockerRoom/Lockers" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.45)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker3" parent="LockerRoom/Lockers" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(0.943697, 0, 0.330811, 0, 1, 0, -0.330811, 0, 0.943697, 0, 0, 3.10705)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker4" parent="LockerRoom/Lockers" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.4)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker5" parent="LockerRoom/Lockers" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.95)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker7" parent="LockerRoom/Lockers" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -13.775)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker8" parent="LockerRoom/Lockers" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.325)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker9" parent="LockerRoom/Lockers" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.85)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker10" parent="LockerRoom/Lockers" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18.15)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker11" parent="LockerRoom/Lockers" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16.7)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker12" parent="LockerRoom/Lockers" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15.225)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker13" parent="LockerRoom/Lockers" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.525)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker14" parent="LockerRoom/Lockers" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -21.075)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker15" parent="LockerRoom/Lockers" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -19.6)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker16" parent="LockerRoom/Lockers" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -23.975)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Lockers3" type="Node3D" parent="LockerRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.525, 2, 10.9)
+
+[node name="Locker2" parent="LockerRoom/Lockers3" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.45)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker3" parent="LockerRoom/Lockers3" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(0.943697, 0, 0.330811, 0, 1, 0, -0.330811, 0, 0.943697, 0, 0, 3.10705)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker4" parent="LockerRoom/Lockers3" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.4)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker5" parent="LockerRoom/Lockers3" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.95)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker7" parent="LockerRoom/Lockers3" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -13.775)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker8" parent="LockerRoom/Lockers3" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.325)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker9" parent="LockerRoom/Lockers3" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.85)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker10" parent="LockerRoom/Lockers3" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18.15)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker11" parent="LockerRoom/Lockers3" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16.7)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker12" parent="LockerRoom/Lockers3" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15.225)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker13" parent="LockerRoom/Lockers3" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.525)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker14" parent="LockerRoom/Lockers3" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -21.075)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker15" parent="LockerRoom/Lockers3" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -19.6)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker16" parent="LockerRoom/Lockers3" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -23.975)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Lockers2" type="Node3D" parent="LockerRoom"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.075, 2, -9.5)
+
+[node name="Locker" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(-0.00841968, 0.899991, 0.435828, 0.999956, 0.00935489, 1.49132e-09, -0.00407712, 0.435809, -0.90003, 1.83342, -1.09497, -0.4)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker17" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.94217)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker2" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.05)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker3" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8147e-06, 0, 2.55519)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker18" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.72205e-06, 0, 4.01714)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker4" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(-4.75694e-08, 1, 8.11416e-08, -0.998792, -4.35242e-08, -0.049146, -0.049146, -8.33814e-08, 0.998792, 2, -1.03368, -8.4)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker23" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(0.81123, 0.583913, -0.0308691, -0.0373405, -0.000951996, -0.999302, -0.583535, 0.811816, 0.0210313, 0.731985, -0.78836, -11.1969)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker5" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.95)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker6" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(0.993357, 0, 0.115076, 0, 1, 0, -0.115076, 0, 0.993357, 0.421366, 0, -6.475)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker7" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -13.775)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker8" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90735e-06, 0, -4.925)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker19" type="CSGBox3D" parent="LockerRoom/Lockers2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90735e-06, 3.02299, -4.925)
+use_collision = true
+size = Vector3(0.8, 3, 1.4)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Cut" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker19"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.100002, 0.1, -9.53674e-07)
+operation = 2
+use_collision = true
+size = Vector3(0.8, 2.6, 1.2)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Divider" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker19"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0500001, 0)
+use_collision = true
+size = Vector3(0.8, 0.1, 1.2)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="DoorTop" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker19"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.375, 0.75, 0)
+use_collision = true
+size = Vector3(0.1, 1.3, 1.2)
+material = SubResource("StandardMaterial3D_3nq67")
+
+[node name="Hinge1" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker19/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125008, 0.3375, -0.6125)
+use_collision = true
+size = Vector3(0.125, 0.425, 0.025)
+material = SubResource("StandardMaterial3D_3nq67")
+
+[node name="Hinge2" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker19/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125008, -0.3375, -0.6125)
+use_collision = true
+size = Vector3(0.125, 0.425, 0.025)
+material = SubResource("StandardMaterial3D_3nq67")
+
+[node name="Slot1" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker19/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.475, 0)
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot2" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker19/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.375, 0)
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot3" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker19/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.275, 0)
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot4" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker19/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.425, 0)
+operation = 2
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot5" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker19/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.325, 0)
+operation = 2
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot6" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker19/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.225, 0)
+operation = 2
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Locker20" type="CSGBox3D" parent="LockerRoom/Lockers2"]
+transform = Transform3D(0.936953, 0, -0.349455, 0, 1, 0, 0.349455, 0, 0.936953, 1.90735e-06, 3.02299, -2.87609)
+use_collision = true
+size = Vector3(0.8, 3, 1.4)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Cut" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.100002, 0.1, -9.53674e-07)
+operation = 2
+use_collision = true
+size = Vector3(0.8, 2.6, 1.2)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Door" parent="LockerRoom/Lockers2/Locker20" node_paths=PackedStringArray("door_area", "push_forward") instance=ExtResource("3_bggyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.389042, -1.39083, -0.573138)
+door_area = NodePath("Area3D")
+push_forward = NodePath("Area3D")
+open_forward_degrees = 102.0
+open_back_degrees = 102.0
+open_forward_time_secs = 2.0
+open_back_time_secs = 2.0
+door_close_time_secs = 2.0
+
+[node name="DoorBtm" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/Door/DoorPivot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0205956, 0.744557, 0.570151)
+use_collision = true
+size = Vector3(0.1, 1.3, 1.2)
+material = SubResource("StandardMaterial3D_3nq67")
+
+[node name="Slot1" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/Door/DoorPivot/DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.475, 0)
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot2" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/Door/DoorPivot/DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.375, 0)
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot3" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/Door/DoorPivot/DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.275, 0)
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot4" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/Door/DoorPivot/DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.425, 0)
+operation = 2
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot5" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/Door/DoorPivot/DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.325, 0)
+operation = 2
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot6" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/Door/DoorPivot/DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.225, 0)
+operation = 2
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Hinge1" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/Door/DoorPivot/DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125008, 0.3375, -0.6125)
+use_collision = true
+size = Vector3(0.125, 0.425, 0.025)
+material = SubResource("StandardMaterial3D_3nq67")
+
+[node name="Hinge2" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/Door/DoorPivot/DoorBtm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125008, -0.3375, -0.6125)
+use_collision = true
+size = Vector3(0.125, 0.425, 0.025)
+material = SubResource("StandardMaterial3D_3nq67")
+
+[node name="Area3D" type="Area3D" parent="LockerRoom/Lockers2/Locker20/Door"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LockerRoom/Lockers2/Locker20/Door/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.31545, -0.826321, 2.35542)
+shape = SubResource("BoxShape3D_7egxl")
+
+[node name="Divider" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0500001, 0)
+use_collision = true
+size = Vector3(0.8, 0.1, 1.2)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="DoorTop" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.375, 0.75, 0)
+use_collision = true
+size = Vector3(0.1, 1.3, 1.2)
+material = SubResource("StandardMaterial3D_3nq67")
+
+[node name="Hinge1" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125008, 0.3375, -0.6125)
+use_collision = true
+size = Vector3(0.125, 0.425, 0.025)
+material = SubResource("StandardMaterial3D_3nq67")
+
+[node name="Hinge2" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125008, -0.3375, -0.6125)
+use_collision = true
+size = Vector3(0.125, 0.425, 0.025)
+material = SubResource("StandardMaterial3D_3nq67")
+
+[node name="Slot1" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.475, 0)
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot2" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.375, 0)
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot3" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.275, 0)
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot4" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.425, 0)
+operation = 2
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot5" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.325, 0)
+operation = 2
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Slot6" type="CSGBox3D" parent="LockerRoom/Lockers2/Locker20/DoorTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0290318, 0.225, 0)
+operation = 2
+use_collision = true
+size = Vector3(0.2, 0.05, 0.6)
+material = SubResource("StandardMaterial3D_nclp8")
+
+[node name="Locker22" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, -8.74228e-08, -8.74228e-08, 8.74228e-08, -4.37114e-08, 1, -8.74228e-08, -1, -4.37114e-08, 1.90735e-06, 5.24831, -4.21812)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker21" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(0.99544, 0, 0.095394, 0, 1, 0, -0.095394, 0, 0.99544, 0.104855, 3.02299, -6.61688)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker9" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(0.997901, 0, -0.0647587, 0, 1, 0, 0.0647587, 0, 0.997901, 0, 0, -3.45)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker10" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18.15)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker11" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(0.987386, 0, 0.15833, 0, 1, 0, -0.15833, 0, 0.987386, 1.90735e-06, 0, -16.7)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker12" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15.225)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker13" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(0.943928, 0, 0.330152, 0, 1, 0, -0.330152, 0, 0.943928, 0.178078, 0, -22.525)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker14" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(0.985325, 0, -0.170691, 0, 1, 0, 0.170691, 0, 0.985325, 0.541595, 0, -21.075)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker15" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(0.989885, 0, -0.141869, 0, 1, 0, 0.141869, 0, 0.989885, 0.190083, 0, -19.6)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Locker16" parent="LockerRoom/Lockers2" instance=ExtResource("1_bu0f7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -23.975)
+material = SubResource("StandardMaterial3D_if314")
+
+[node name="Geometry" type="Node3D" parent="LockerRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0629272, 0, 0.5)
+
+[node name="Ground3" type="CSGBox3D" parent="LockerRoom/Geometry"]
+use_collision = true
+size = Vector3(10.1259, 1, 31)
+material = SubResource("StandardMaterial3D_e12bj")
+
+[node name="Ground5" type="CSGBox3D" parent="LockerRoom/Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0629272, 4.65649, 15.8771)
+use_collision = true
+size = Vector3(10, 10.313, 0.756237)
+material = SubResource("StandardMaterial3D_e12bj")
+
+[node name="Ground4" type="CSGBox3D" parent="LockerRoom/Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3866, 0, -0.5)
+use_collision = true
+size = Vector3(10.6473, 1, 30)
+material = SubResource("StandardMaterial3D_e12bj")
+
+[node name="Wall" type="CSGBox3D" parent="LockerRoom/Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.13707, 5, 0)
+cast_shadow = 2
+use_collision = true
+size = Vector3(0.4, 9, 31)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="DoorFrame" type="CSGBox3D" parent="LockerRoom/Geometry/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.45, 8.9)
+use_collision = true
+size = Vector3(1, 4.1, 4.4)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="DoorCutout" type="CSGBox3D" parent="LockerRoom/Geometry/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.525, 8.9)
+operation = 2
+size = Vector3(3.4, 3.95, 4)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Door2" parent="LockerRoom/Geometry/Wall" instance=ExtResource("2_ytu5h")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0216885, -4.43549, 7.1442)
+
+[node name="Door" parent="LockerRoom/Geometry/Wall" instance=ExtResource("3_nlerh")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0326347, -4.44442, 10.6733)
+
+[node name="DoorFrame2" type="CSGBox3D" parent="LockerRoom/Geometry/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0498238, -2.50277, 7.03319)
+use_collision = true
+size = Vector3(0.172844, 3.99446, 0.259839)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="DoorFrame3" type="CSGBox3D" parent="LockerRoom/Geometry/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0498238, -2.50277, 10.7753)
+use_collision = true
+size = Vector3(0.172844, 3.99446, 0.259839)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="DoorFrame4" type="CSGBox3D" parent="LockerRoom/Geometry/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0498238, -0.616217, 8.90247)
+use_collision = true
+size = Vector3(0.172844, 0.22135, 3.47086)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Wall3" type="CSGBox3D" parent="LockerRoom/Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0629272, 5, -15.5)
+use_collision = true
+size = Vector3(10, 9, 1.2)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="DoorCutout" type="CSGBox3D" parent="LockerRoom/Geometry/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.475, -0.0999994)
+operation = 2
+size = Vector3(3.4, 3.95, 2.2)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Wall4" type="CSGBox3D" parent="LockerRoom/Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.86293, 5, -0.5)
+use_collision = true
+size = Vector3(0.4, 9, 30)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Door3" parent="LockerRoom/Geometry/Wall4" instance=ExtResource("2_ytu5h")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.148613, -4.42217, 1.01683)
+
+[node name="DoorArea" parent="LockerRoom/Geometry/Wall4/Door3" index="2"]
 visible = false
 
-[node name="Headlamp2" parent="Roof" instance=ExtResource("1_y6udq")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -15, -1, 0)
+[node name="DoorPushForward" parent="LockerRoom/Geometry/Wall4/Door3" index="3"]
+visible = false
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Roof"]
-light_energy = 3.717
-omni_range = 88.486
-omni_attenuation = 0.859
+[node name="DoorPushBack" parent="LockerRoom/Geometry/Wall4/Door3" index="4"]
+visible = false
+
+[node name="DoorFrame" type="CSGBox3D" parent="LockerRoom/Geometry/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.45, 1.9)
+use_collision = true
+size = Vector3(1, 4.1, 2.6)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="DoorCutout" type="CSGBox3D" parent="LockerRoom/Geometry/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.525, 1.8)
+operation = 2
+size = Vector3(3.4, 3.95, 2)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="DoorFrame5" type="CSGBox3D" parent="LockerRoom/Geometry/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.249823, -2.50277, 0.93319)
+use_collision = true
+size = Vector3(0.172844, 3.99446, 0.259839)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="DoorFrame6" type="CSGBox3D" parent="LockerRoom/Geometry/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.249823, -0.605542, 1.93557)
+use_collision = true
+size = Vector3(0.172844, 0.2, 1.7354)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Roof3" type="CSGBox3D" parent="LockerRoom/Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.137072, 9, 0.214893)
+use_collision = true
+size = Vector3(9.6, 1, 30.2298)
+
+[node name="Enterance" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 10.4)
+
+[node name="Path3D" type="Path3D" parent="Enterance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, -1, -17)
+curve = SubResource("Curve3D_d1036")
+
+[node name="PoolArea" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 7.8, 0.5)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="PoolArea"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 24, -34)
+spot_range = 78.619
+spot_attenuation = -0.39
+spot_angle = 52.088
+
+[node name="Water" type="MeshInstance3D" parent="PoolArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, -40)
+mesh = SubResource("PlaneMesh_su3x5")
+
+[node name="Layout" type="Node3D" parent="PoolArea"]
+
+[node name="Ground2" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.1, -9.3, -62.5)
+use_collision = true
+size = Vector3(5, 1, 76)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground5" parent="PoolArea/Layout" instance=ExtResource("5_norwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, -9.3, -78.5)
+
+[node name="Ground4" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4, -9.3, -62.5)
+use_collision = true
+size = Vector3(4, 1, 76)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground13" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.9, -4.3, -23)
+use_collision = true
+size = Vector3(1, 11, 15)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground14" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.9, -4.3, -25.5)
+use_collision = true
+size = Vector3(1, 11, 20)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground19" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.4, 5.2, -37.5)
+use_collision = true
+size = Vector3(20, 30, 4)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground23" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.4, 5.2, -37.5)
+use_collision = true
+size = Vector3(20, 30, 4)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground24" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.1, 5.2, -33.5)
+use_collision = true
+size = Vector3(7, 30, 12)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground22" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.4, 5.2, -69.5)
+use_collision = true
+size = Vector3(4, 30, 62)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground20" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 5.2, -102)
+use_collision = true
+size = Vector3(103, 30, 3)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground21" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.1, 5.2, -71.5)
+use_collision = true
+size = Vector3(3, 30, 64)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground18" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.4, -4.3, -16.5)
+use_collision = true
+size = Vector3(12, 11, 2)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground16" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.9, -4.3, -0.5)
+use_collision = true
+size = Vector3(1, 11, 30)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground15" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.4, -4.3, -31)
+use_collision = true
+size = Vector3(12, 11, 1)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground17" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.4, -4.3, 15)
+use_collision = true
+size = Vector3(12, 11, 1)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground11" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.4, -8.3, -68)
+use_collision = true
+size = Vector3(10, 1, 65)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground25" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.6, -8.3, -68)
+use_collision = true
+size = Vector3(10, 1, 65)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground12" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.4, -8.3, -25.5)
+use_collision = true
+size = Vector3(12, 1, 20)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground6" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, -9.3, -20)
+use_collision = true
+size = Vector3(49, 1, 9)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground3" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1, -13.9, -58.5)
+use_collision = true
+size = Vector3(57, 1, 86)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground7" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4, -10.9, -42.5)
+use_collision = true
+size = Vector3(4, 5, 16)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground10" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, -10.9, -32.5)
+use_collision = true
+size = Vector3(20, 5, 4)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground9" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.6, -10.9, -38.5)
+use_collision = true
+size = Vector3(4, 5, 16)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground8" type="CSGBox3D" parent="PoolArea/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, -10.9, -48.5)
+use_collision = true
+size = Vector3(20, 5, 4)
+material = SubResource("StandardMaterial3D_2rojl")
 
 [node name="Player" parent="." instance=ExtResource("1_bo5vd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 10.4)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dm0hx")
+
+[node name="DEBUG" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dm0hx")
+
+[node name="PalmTree" parent="." instance=ExtResource("2_kihij")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.3444, -2, -35.1124)
+
+[node name="PalmTree2" parent="." instance=ExtResource("2_kihij")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3444, -3, -32.1124)
+
+[node name="PalmTree3" parent="." instance=ExtResource("2_kihij")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6556, -2, -50.1124)
+
+[node name="PalmTree4" parent="." instance=ExtResource("2_kihij")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6556, -3, -46.1124)
+
+[connection signal="interacted" from="LockerRoom/Collectable" to="LockerRoom" method="_on_collectable_interacted"]
+
+[editable path="LockerRoom/Lockers2/Locker20/Door"]
+[editable path="LockerRoom/Geometry/Wall4/Door3"]

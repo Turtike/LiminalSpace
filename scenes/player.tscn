@@ -20,7 +20,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:position")
+tracks/0/path = NodePath("CameraOffset/Camera3D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -60,7 +60,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:position")
+tracks/0/path = NodePath("CameraOffset/Camera3D:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -76,7 +76,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:position")
+tracks/0/path = NodePath("CameraOffset/Camera3D:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -93,7 +93,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:position")
+tracks/0/path = NodePath("CameraOffset/Camera3D:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -154,7 +154,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:position")
+tracks/0/path = NodePath("CameraOffset/Camera3D:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -314,19 +314,23 @@ stream_2/stream = ExtResource("5_7yr4d")
 stream_3/stream = ExtResource("6_n71rm")
 
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 4
 script = ExtResource("1_417cw")
 
 [node name="QueueJump" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 target_position = Vector3(0, -0.2, 0)
 
-[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
+[node name="CameraOffset" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraOffset" node_paths=PackedStringArray("player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.774896, 0)
 cull_mask = 1048063
 script = ExtResource("2_86h0t")
-player = NodePath("..")
+player = NodePath("../..")
 
-[node name="InteractRay" parent="Camera3D" instance=ExtResource("3_p41mk")]
+[node name="InteractRay" parent="CameraOffset/Camera3D" instance=ExtResource("3_p41mk")]
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_id2bx")

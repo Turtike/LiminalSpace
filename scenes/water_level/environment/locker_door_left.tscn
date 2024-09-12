@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbdcc8kcb87ky"]
+
+[ext_resource type="PackedScene" uid="uid://bamjr27weq6br" path="res://scenes/world_object/door.tscn" id="1_ql8vs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7k3sh"]
+albedo_color = Color(0.4032, 0.72, 0.66192, 1)
+metallic = 0.6
+metallic_specular = 0.2
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c04ta"]
+albedo_color = Color(0.73, 0.73, 0.73, 1)
+metallic = 0.79
+roughness = 0.4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s2piq"]
+size = Vector3(10.5215, 2.49622, 11.0336)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e1rae"]
+size = Vector3(6.75311, 1.8914, 4.45318)
+
+[node name="Door" node_paths=PackedStringArray("door_area", "push_forward", "push_back") instance=ExtResource("1_ql8vs")]
+door_area = NodePath("DoorArea")
+push_forward = NodePath("DoorPushForward")
+push_back = NodePath("DoorPushBack")
+open_forward_degrees = 100.0
+open_back_degrees = 100.0
+
+[node name="Door" type="CSGBox3D" parent="DoorPivot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.885449, 1.86719, -0.066584)
+use_collision = true
+size = Vector3(1.7376, 3.74246, 0.0964935)
+material = SubResource("StandardMaterial3D_7k3sh")
+
+[node name="Door2" type="CSGBox3D" parent="DoorPivot" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3097, 1.96427, -0.066584)
+size = Vector3(0.415601, 1.55451, 0.148682)
+material = SubResource("StandardMaterial3D_c04ta")
+
+[node name="DoorArea" type="Area3D" parent="." index="2"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.539509, 0.748108, 0.0827932)
+shape = SubResource("BoxShape3D_s2piq")
+
+[node name="DoorPushForward" type="Area3D" parent="." index="3"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorPushForward" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.736535, 0.940224, 2.28941)
+shape = SubResource("BoxShape3D_e1rae")
+
+[node name="DoorPushBack" type="Area3D" parent="." index="4"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorPushBack" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.718708, 0.952173, -2.49381)
+shape = SubResource("BoxShape3D_e1rae")

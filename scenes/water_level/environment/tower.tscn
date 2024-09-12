@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://8wffqncs5t2s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2rojl"]
+albedo_color = Color(0.74, 1, 0.987, 1)
+metallic_specular = 0.58
+
+[node name="Ground5" type="CSGBox3D"]
+use_collision = true
+size = Vector3(40, 1, 44)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.2358, 6.75, -15.25)
+size = Vector3(3, 14.5, 0.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.48584, 6.75, -8.25)
+size = Vector3(10.5, 14.5, 14.5)
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.5, 0)
+polygon = PackedVector2Array(0, 0, 1.5, 7, 2.5, 7, 6, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.866025, -0.482963, 0.12941, -7.45058e-09, 0.258819, 0.965926, -0.5, -0.836516, 0.224144, -9.5, 21.5, -4)
+light_energy = 4.035
+spot_range = 27.165
+spot_attenuation = -1.42
+spot_angle = 40.1946
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(0.965926, 0.25, -0.0669873, -1.49012e-08, 0.258819, 0.965926, 0.258819, -0.933013, 0.25, 7, 21.5, -4)
+spot_range = 24.5
+spot_angle = 16.1192
