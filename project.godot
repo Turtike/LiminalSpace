@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="University Game Jam"
-run/main_scene="res://test/rotating_path_platform.tscn"
+run/main_scene="res://scenes/water_level/water_level.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 
 UserSettings="*res://scripts/user_settings.gd"
 Physics="*res://scripts/physics.gd"
-PauseMenu="*res://scripts/pause_menu.gd"
+PauseMenu="*res://scenes/menu/pause.tscn"
 
 [input]
 

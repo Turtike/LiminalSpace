@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://beyyem8dtxifg"]
 
-[ext_resource type="PackedScene" uid="uid://b7ilwykmj8fcr" path="res://scenes/interactable_scenes/playerInteractEnabled.tscn" id="2_nwcpv"]
+[ext_resource type="PackedScene" uid="uid://cb5py51fx6kbe" path="res://scenes/player.tscn" id="2_ebprp"]
 [ext_resource type="PackedScene" uid="uid://dibqov0e7kked" path="res://scenes/button_test/button.tscn" id="2_u4khw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qwima"]
@@ -35,5 +35,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59036, 3.08306)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55845, -4.43418)
 prompt_msg = "Press E to push (This is button number two!)"
 
-[node name="Player" parent="." instance=ExtResource("2_nwcpv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.14879, 0)
+[node name="Player" parent="." instance=ExtResource("2_ebprp")]

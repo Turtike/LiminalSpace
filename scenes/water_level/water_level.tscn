@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1gwks6y6hcdt"]
+
+[ext_resource type="PackedScene" uid="uid://cb5py51fx6kbe" path="res://scenes/player.tscn" id="1_bo5vd"]
+[ext_resource type="PackedScene" uid="uid://ceyo8i80fjvmb" path="res://scenes/world_object/headlamp.tscn" id="1_y6udq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2rojl"]
+albedo_color = Color(1, 0.839667, 0.74, 1)
+
+[sub_resource type="Environment" id="Environment_dm0hx"]
+background_mode = 1
+background_color = Color(0.352962, 0.367031, 0.359755, 1)
+
+[node name="WaterLevel" type="Node3D"]
+process_mode = 1
+
+[node name="Ground" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.5, 0)
+use_collision = true
+size = Vector3(125, 1, 81)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Roof" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 14.5, 0)
+use_collision = true
+size = Vector3(125, 1, 81)
+
+[node name="Headlamp" parent="Roof" instance=ExtResource("1_y6udq")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -1, 0)
+visible = false
+
+[node name="Headlamp2" parent="Roof" instance=ExtResource("1_y6udq")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -15, -1, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Roof"]
+light_energy = 3.717
+omni_range = 88.486
+omni_attenuation = 0.859
+
+[node name="Player" parent="." instance=ExtResource("1_bo5vd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dm0hx")

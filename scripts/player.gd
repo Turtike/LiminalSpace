@@ -33,7 +33,7 @@ func rotate_horizontal(angle) -> void:
 		h_rotation += PI * 2
 
 func _physics_process(delta: float) -> void:
-	print(state_machine.get_current_node())
+	#print(state_machine.get_current_node())
 	# Add the gravity.
 	if not is_on_floor():
 		if local_velocity.y < 0:
@@ -58,11 +58,14 @@ func _physics_process(delta: float) -> void:
 	var direction := Vector3(input_dir.x, 0, input_dir.y).normalized()
 	if direction:
 		$AnimationTree.set("parameters/conditions/idle", false)
-		$AnimationTree.set("parameters/conditions/walking", true)
 		speed += ACCELERATION * delta
 		if Input.is_action_pressed("run"):
+			$AnimationTree.set("parameters/conditions/running", true)
+			$AnimationTree.set("parameters/conditions/walking", false)
 			speed = clamp(speed, 0, RUN_SPEED)
 		else:
+			$AnimationTree.set("parameters/conditions/running", false)
+			$AnimationTree.set("parameters/conditions/walking", true)
 			speed = clamp(speed, 0, WALK_SPEED)
 		
 		local_velocity.x = direction.x * speed
@@ -70,6 +73,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		$AnimationTree.set("parameters/conditions/idle", true)
 		$AnimationTree.set("parameters/conditions/walking", false)
+		$AnimationTree.set("parameters/conditions/running", false)
 			#print("stop")
 		speed -= DECELERATION * delta
 		if speed < 0: speed = 0
@@ -83,6 +87,7 @@ func _physics_process(delta: float) -> void:
 		$AnimationTree.set("parameters/conditions/idle", false)
 		$AnimationTree.set("parameters/conditions/walking", false)
 		$AnimationTree.set("parameters/conditions/landing", false)
+		$AnimationTree.set("parameters/conditions/running", false)
 		$AnimationTree.set("parameters/conditions/jumping", true)
 		jump_queued = false
 		if speed <= WALK_SPEED:
@@ -107,7 +112,8 @@ func update_velocity_and_transform():
 	transform.basis = basis.orthonormalized()
 
 	velocity = transform.basis * local_velocity
-	
+
+# This stuff is to be removed, just meant to test gravity changing.
 func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("ui_left"):

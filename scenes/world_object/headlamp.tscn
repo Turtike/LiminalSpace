@@ -3,10 +3,12 @@
 [node name="Headlamp" type="SpotLight3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 light_color = Color(1, 0.936667, 0.8, 1)
+light_energy = 4.0
 shadow_enabled = true
+spot_range = 157.922
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_color = Color(1, 0.906667, 0.84, 1)
 light_energy = 0.3
 light_specular = 0.0
-omni_range = 8.042
+omni_range = 206.005

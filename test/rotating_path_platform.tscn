@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bsl45uelr1ldf"]
 
 [ext_resource type="PackedScene" uid="uid://cb5py51fx6kbe" path="res://scenes/player.tscn" id="1_w12gb"]
-[ext_resource type="PackedScene" uid="uid://ceyo8i80fjvmb" path="res://scenes/headlamp.tscn" id="2_w00ln"]
+[ext_resource type="PackedScene" uid="uid://ceyo8i80fjvmb" path="res://scenes/world_object/headlamp.tscn" id="2_w00ln"]
 [ext_resource type="PackedScene" uid="uid://bofj3ngfhiyqw" path="res://scenes/gravity_path/gravity_path_segment.tscn" id="3_a76rr"]
 [ext_resource type="PackedScene" uid="uid://38p260e0d33c" path="res://scenes/gravity_path/gravity_path.tscn" id="3_gbqgw"]
 
@@ -102,7 +102,6 @@ path_joined = false
 path = NodePath("../Path3D")
 segment_size = Vector3(4, 1, 0.5)
 segment_offset = Vector3(0, 1, 0)
-update = false
 
 [node name="GravityPathSegment" parent="Hallway/GravityPath" instance=ExtResource("3_a76rr")]
 transform = Transform3D(-0.0490731, -0.0051964, -0.998782, 8.73115e-10, 0.999986, -0.00520266, 0.998795, -0.000255312, -0.0490724, -0.711867, 0.382521, -0.167717)
