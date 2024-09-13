@@ -114,16 +114,16 @@ func update_velocity_and_transform():
 	velocity = transform.basis * local_velocity
 
 # This stuff is to be removed, just meant to test gravity changing.
-func _input(event: InputEvent) -> void:
-	
-	if event.is_action_pressed("ui_left"):
-		var tween = create_tween()
-		tween.tween_property(self, "up_direction", Vector3(0.1, 0, -1), 0.5)
-		
-	if event.is_action_pressed("ui_right"):
-		var tween = create_tween()
-		tween.tween_property(self, "up_direction", Vector3.BACK, 0.5)
-		
-	if event.is_action_pressed("ui_down"):
-		var tween = create_tween()
-		tween.tween_property(self, "up_direction", Vector3.UP, 0.5)
+#func _input(event: InputEvent) -> void:
+	#
+	#if event.is_action_pressed("ui_left"):
+		#var tween = create_tween()
+		#tween.tween_property(self, "up_direction", Vector3(0.1, 0, -1), 0.5)
+		#
+	#if event.is_action_pressed("ui_right"):
+		#var tween = create_tween()
+		#tween.tween_property(self, "up_direction", Vector3.BACK, 0.5)
+		#
+	#if event.is_action_pressed("ui_down"):
+		#var tween = create_tween()
+		#tween.tween_property(self, "up_direction", Vector3.UP, 0.5)
