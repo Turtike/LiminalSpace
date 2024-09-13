@@ -1,6 +1,7 @@
-[gd_scene load_steps=34 format=3 uid="uid://cb5py51fx6kbe"]
+[gd_scene load_steps=35 format=3 uid="uid://cb5py51fx6kbe"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_417cw"]
+[ext_resource type="Environment" uid="uid://ddamkn0x51jo1" path="res://scenes/water_level/environment.tres" id="2_3t5yl"]
 [ext_resource type="Script" path="res://scripts/player_camera.gd" id="2_86h0t"]
 [ext_resource type="PackedScene" uid="uid://c15q3o0j5w62v" path="res://scenes/interactable_scenes/interact_ray.tscn" id="3_p41mk"]
 [ext_resource type="AudioStream" uid="uid://djiyke0g1si2e" path="res://sounds/footstep-001.wav" id="3_xsten"]
@@ -326,6 +327,7 @@ target_position = Vector3(0, -0.2, 0)
 [node name="Camera3D" type="Camera3D" parent="CameraOffset" node_paths=PackedStringArray("player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.774896, 0)
 cull_mask = 1048063
+environment = ExtResource("2_3t5yl")
 script = ExtResource("2_86h0t")
 player = NodePath("../..")
 

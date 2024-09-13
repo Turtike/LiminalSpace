@@ -1,10 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8ioqv7yy70el"]
+[gd_scene load_steps=6 format=3 uid="uid://c8ioqv7yy70el"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_if314"]
 albedo_color = Color(0.2044, 0.40588, 0.73, 1)
 metallic = 0.92
 metallic_specular = 0.58
 roughness = 0.56
+
+[sub_resource type="BoxMesh" id="BoxMesh_ss1pk"]
+size = Vector3(0.8, 3, 1.4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7fdag"]
 size = Vector3(0.8, 3, 1.4)
@@ -19,8 +22,13 @@ albedo_color = Color(0.3, 0.72, 1, 1)
 metallic = 0.7
 
 [node name="Locker" type="CSGBox3D"]
+cast_shadow = 0
 size = Vector3(0.8, 3, 1.4)
 material = SubResource("StandardMaterial3D_if314")
+
+[node name="Shadow" type="MeshInstance3D" parent="."]
+cast_shadow = 3
+mesh = SubResource("BoxMesh_ss1pk")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

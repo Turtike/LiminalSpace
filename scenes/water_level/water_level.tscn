@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c1gwks6y6hcdt"]
+[gd_scene load_steps=28 format=3 uid="uid://c1gwks6y6hcdt"]
 
 [ext_resource type="PackedScene" uid="uid://cb5py51fx6kbe" path="res://scenes/player.tscn" id="1_bo5vd"]
 [ext_resource type="PackedScene" uid="uid://c8ioqv7yy70el" path="res://scenes/water_level/environment/locker.tscn" id="1_bu0f7"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c4qq4sxjo2o4y" path="res://scenes/water_level/environment/locker_door_right.tscn" id="3_nlerh"]
 [ext_resource type="PackedScene" uid="uid://8wffqncs5t2s" path="res://scenes/water_level/environment/tower.tscn" id="5_norwc"]
 [ext_resource type="Material" uid="uid://bqi5cnohe0alv" path="res://shaders/water_shader_material.tres" id="9_708at"]
+[ext_resource type="Script" path="res://scenes/water_level/debug.gd" id="13_0223l"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yj2o3"]
 albedo_color = Color(0.81, 0.36774, 0.1782, 1)
@@ -80,7 +81,7 @@ size = Vector2(45, 40)
 subdivide_width = 45
 subdivide_depth = 40
 
-[sub_resource type="Environment" id="Environment_dm0hx"]
+[sub_resource type="Environment" id="Environment_vibar"]
 background_mode = 1
 background_color = Color(1, 1, 1, 1)
 tonemap_exposure = 0.1
@@ -826,6 +827,8 @@ material = SubResource("StandardMaterial3D_2rojl")
 
 [node name="Door3" parent="LockerRoom/Geometry/Wall4" instance=ExtResource("2_ytu5h")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.148613, -4.42217, 1.01683)
+push_forward = NodePath("")
+push_back = NodePath("")
 
 [node name="DoorArea" parent="LockerRoom/Geometry/Wall4/Door3" index="2"]
 visible = false
@@ -1031,11 +1034,9 @@ material = SubResource("StandardMaterial3D_2rojl")
 [node name="Player" parent="." instance=ExtResource("1_bo5vd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 10.4)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_dm0hx")
-
 [node name="DEBUG" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_dm0hx")
+environment = SubResource("Environment_vibar")
+script = ExtResource("13_0223l")
 
 [node name="PalmTree" parent="." instance=ExtResource("2_kihij")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.3444, -2, -35.1124)
@@ -1053,3 +1054,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6556, -3, -46.1124)
 
 [editable path="LockerRoom/Lockers2/Locker20/Door"]
 [editable path="LockerRoom/Geometry/Wall4/Door3"]
+[editable path="Player"]
