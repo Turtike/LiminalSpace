@@ -1,13 +1,62 @@
-[gd_scene load_steps=2 format=3 uid="uid://8wffqncs5t2s"]
+[gd_scene load_steps=7 format=3 uid="uid://8wffqncs5t2s"]
+
+[ext_resource type="Texture2D" uid="uid://wkciaiopm3bh" path="res://textures/water_stream.png" id="1_fc0yn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2rojl"]
 albedo_color = Color(0.74, 1, 0.987, 1)
 metallic_specular = 0.58
 
-[node name="Ground5" type="CSGBox3D"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mmo3x"]
+transparency = 1
+albedo_texture = ExtResource("1_fc0yn")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e8yrq"]
+material = SubResource("StandardMaterial3D_mmo3x")
+orientation = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d53q5"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_kc8gr"]
+material = SubResource("StandardMaterial3D_d53q5")
+size = Vector2(0.1, 0.1)
+
+[node name="Tower" type="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
 use_collision = true
 size = Vector3(40, 1, 44)
 material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="WaterSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.8814, -0.5)
+
+[node name="Water" type="CPUParticles3D" parent="WaterSpawner"]
+amount = 16
+lifetime = 2.21
+randomness = 0.14
+draw_order = 1
+mesh = SubResource("PlaneMesh_e8yrq")
+direction = Vector3(0, -1, 0)
+spread = 1.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+damping_min = 6.589
+damping_max = 8.476
+scale_amount_min = 1.1
+scale_amount_max = 1.3
+
+[node name="CPUParticles3D2" type="CPUParticles3D" parent="WaterSpawner"]
+amount = 16
+lifetime = 2.21
+draw_order = 1
+mesh = SubResource("QuadMesh_kc8gr")
+emission_shape = 4
+emission_points = PackedVector3Array(-1, 0, 0, 1, 0, 0)
+direction = Vector3(0, -1, 0)
+spread = 10.0
+initial_velocity_max = 10.0
+damping_min = 0.3
+damping_max = 0.3
+scale_amount_max = 1.3
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.2358, 6.75, -15.25)
@@ -20,6 +69,10 @@ size = Vector3(10.5, 14.5, 14.5)
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.5, 0)
 polygon = PackedVector2Array(0, 0, 1.5, 7, 2.5, 7, 6, 0)
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 13.5, 0)
+polygon = PackedVector2Array(1.5, -0.5, 1.5, 0.5, 4.5, 0.5, 4.5, -0.5)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(0.866025, -0.482963, 0.12941, -7.45058e-09, 0.258819, 0.965926, -0.5, -0.836516, 0.224144, -9.5, 21.5, -4)
