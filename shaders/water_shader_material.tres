@@ -4,10 +4,12 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ew2po"]
 noise_type = 3
+frequency = 0.0011
 fractal_type = 2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ex72o"]
 seamless = true
+seamless_blend_skirt = 0.358
 as_normal_map = true
 bump_strength = 5.3
 noise = SubResource("FastNoiseLite_ew2po")

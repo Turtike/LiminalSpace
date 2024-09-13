@@ -2,5 +2,6 @@
 
 [resource]
 background_mode = 1
-background_energy_multiplier = 0.1
+background_color = Color(1, 1, 1, 1)
+background_energy_multiplier = 0.01
 tonemap_exposure = 0.1

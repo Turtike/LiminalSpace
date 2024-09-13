@@ -324,7 +324,7 @@ target_position = Vector3(0, -0.2, 0)
 
 [node name="CameraOffset" type="Node3D" parent="."]
 
-[node name="Camera3D" type="Camera3D" parent="CameraOffset" node_paths=PackedStringArray("player")]
+[node name="Camera3D" type="Camera3D" parent="CameraOffset" node_paths=PackedStringArray("player") groups=["player_camera"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.774896, 0)
 cull_mask = 1048063
 environment = ExtResource("2_3t5yl")

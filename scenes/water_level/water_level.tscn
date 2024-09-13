@@ -1,17 +1,16 @@
-[gd_scene load_steps=28 format=3 uid="uid://c1gwks6y6hcdt"]
+[gd_scene load_steps=27 format=3 uid="uid://c1gwks6y6hcdt"]
 
 [ext_resource type="PackedScene" uid="uid://cb5py51fx6kbe" path="res://scenes/player.tscn" id="1_bo5vd"]
 [ext_resource type="PackedScene" uid="uid://c8ioqv7yy70el" path="res://scenes/water_level/environment/locker.tscn" id="1_bu0f7"]
 [ext_resource type="Script" path="res://scenes/water_level/locker_room_event.gd" id="1_kabkl"]
 [ext_resource type="Script" path="res://scripts/flicker.gd" id="1_vrses"]
-[ext_resource type="PackedScene" uid="uid://f56kse3kspb0" path="res://scenes/water_level/environment/palm_tree.tscn" id="2_kihij"]
 [ext_resource type="AudioStream" uid="uid://drmwhih7jv2cd" path="res://sounds/secret.wav" id="2_v67ae"]
 [ext_resource type="PackedScene" uid="uid://cbdcc8kcb87ky" path="res://scenes/water_level/environment/locker_door_left.tscn" id="2_ytu5h"]
 [ext_resource type="PackedScene" uid="uid://bamjr27weq6br" path="res://scenes/world_object/door.tscn" id="3_bggyu"]
 [ext_resource type="Script" path="res://scenes/interactable_scenes/interactable_obj.gd" id="3_brnjj"]
 [ext_resource type="PackedScene" uid="uid://c4qq4sxjo2o4y" path="res://scenes/water_level/environment/locker_door_right.tscn" id="3_nlerh"]
-[ext_resource type="PackedScene" uid="uid://8wffqncs5t2s" path="res://scenes/water_level/environment/tower.tscn" id="5_norwc"]
-[ext_resource type="Material" uid="uid://bqi5cnohe0alv" path="res://shaders/water_shader_material.tres" id="9_708at"]
+[ext_resource type="PackedScene" uid="uid://c7k22vd5b0464" path="res://scenes/water_level/environment/left_pool.tscn" id="9_2t3rq"]
+[ext_resource type="PackedScene" uid="uid://cowstm28dcnss" path="res://scenes/water_level/environment/main_pool.tscn" id="10_qcbr2"]
 [ext_resource type="Script" path="res://scenes/water_level/debug.gd" id="13_0223l"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yj2o3"]
@@ -75,11 +74,9 @@ _data = {
 }
 point_count = 9
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_su3x5"]
-material = ExtResource("9_708at")
-size = Vector2(45, 40)
-subdivide_width = 45
-subdivide_depth = 40
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n5eaj"]
+albedo_color = Color(0.74, 1, 0.987, 1)
+metallic_specular = 0.58
 
 [sub_resource type="Environment" id="Environment_vibar"]
 background_mode = 1
@@ -880,156 +877,72 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 7.8, 0.5)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="PoolArea"]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 24, -34)
+shadow_enabled = true
 spot_range = 78.619
 spot_attenuation = -0.39
 spot_angle = 52.088
 
-[node name="Water" type="MeshInstance3D" parent="PoolArea"]
+[node name="LeftPool" parent="PoolArea" instance=ExtResource("9_2t3rq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.1, -8.3, -64)
+
+[node name="Outside" type="Node3D" parent="PoolArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, -40)
-mesh = SubResource("PlaneMesh_su3x5")
 
-[node name="Layout" type="Node3D" parent="PoolArea"]
-
-[node name="Ground2" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.1, -9.3, -62.5)
-use_collision = true
-size = Vector3(5, 1, 76)
-material = SubResource("StandardMaterial3D_2rojl")
-
-[node name="Ground5" parent="PoolArea/Layout" instance=ExtResource("5_norwc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, -9.3, -78.5)
-
-[node name="Ground4" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4, -9.3, -62.5)
-use_collision = true
-size = Vector3(4, 1, 76)
-material = SubResource("StandardMaterial3D_2rojl")
-
-[node name="Ground13" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.9, -4.3, -23)
-use_collision = true
-size = Vector3(1, 11, 15)
-material = SubResource("StandardMaterial3D_2rojl")
-
-[node name="Ground14" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.9, -4.3, -25.5)
-use_collision = true
-size = Vector3(1, 11, 20)
-material = SubResource("StandardMaterial3D_2rojl")
-
-[node name="Ground19" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.4, 5.2, -37.5)
+[node name="Ground19" type="CSGBox3D" parent="PoolArea/Outside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.4, 14.2, 2.5)
 use_collision = true
 size = Vector3(20, 30, 4)
 material = SubResource("StandardMaterial3D_2rojl")
 
-[node name="Ground23" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.4, 5.2, -37.5)
-use_collision = true
-size = Vector3(20, 30, 4)
-material = SubResource("StandardMaterial3D_2rojl")
-
-[node name="Ground24" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.1, 5.2, -33.5)
+[node name="Ground24" type="CSGBox3D" parent="PoolArea/Outside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.1, 14.2, 6.5)
 use_collision = true
 size = Vector3(7, 30, 12)
 material = SubResource("StandardMaterial3D_2rojl")
 
-[node name="Ground22" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.4, 5.2, -69.5)
+[node name="Ground25" type="CSGBox3D" parent="PoolArea/Outside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.1, 14.2, 25.5)
+use_collision = true
+size = Vector3(1, 30, 26)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground22" type="CSGBox3D" parent="PoolArea/Outside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.4, 14.2, -29.5)
 use_collision = true
 size = Vector3(4, 30, 62)
 material = SubResource("StandardMaterial3D_2rojl")
 
-[node name="Ground20" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 5.2, -102)
+[node name="Ground20" type="CSGBox3D" parent="PoolArea/Outside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 14.2, -62)
 use_collision = true
 size = Vector3(103, 30, 3)
 material = SubResource("StandardMaterial3D_2rojl")
 
-[node name="Ground21" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.1, 5.2, -71.5)
+[node name="Ground23" type="CSGBox3D" parent="PoolArea/Outside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.3, 14.4, 2)
 use_collision = true
-size = Vector3(3, 30, 64)
+size = Vector3(20, 29, 4)
+material = SubResource("StandardMaterial3D_n5eaj")
+
+[node name="Ground17" type="CSGBox3D" parent="PoolArea/Outside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.4, 4.7, 55)
+use_collision = true
+size = Vector3(12, 11, 1)
 material = SubResource("StandardMaterial3D_2rojl")
 
-[node name="Ground18" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.4, -4.3, -16.5)
-use_collision = true
-size = Vector3(12, 11, 2)
-material = SubResource("StandardMaterial3D_2rojl")
-
-[node name="Ground16" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.9, -4.3, -0.5)
+[node name="Ground16" type="CSGBox3D" parent="PoolArea/Outside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.9, 4.7, 39.5)
 use_collision = true
 size = Vector3(1, 11, 30)
 material = SubResource("StandardMaterial3D_2rojl")
 
-[node name="Ground15" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.4, -4.3, -31)
+[node name="Ground21" type="CSGBox3D" parent="PoolArea/Outside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.1, 14.2, -31.5)
 use_collision = true
-size = Vector3(12, 11, 1)
+size = Vector3(3, 30, 64)
 material = SubResource("StandardMaterial3D_2rojl")
 
-[node name="Ground17" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.4, -4.3, 15)
-use_collision = true
-size = Vector3(12, 11, 1)
-material = SubResource("StandardMaterial3D_2rojl")
-
-[node name="Ground11" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.4, -8.3, -68)
-use_collision = true
-size = Vector3(10, 1, 65)
-material = SubResource("StandardMaterial3D_2rojl")
-
-[node name="Ground25" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.6, -8.3, -68)
-use_collision = true
-size = Vector3(10, 1, 65)
-material = SubResource("StandardMaterial3D_2rojl")
-
-[node name="Ground12" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.4, -8.3, -25.5)
-use_collision = true
-size = Vector3(12, 1, 20)
-material = SubResource("StandardMaterial3D_2rojl")
-
-[node name="Ground6" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, -9.3, -20)
-use_collision = true
-size = Vector3(49, 1, 9)
-material = SubResource("StandardMaterial3D_2rojl")
-
-[node name="Ground3" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1, -13.9, -58.5)
-use_collision = true
-size = Vector3(57, 1, 86)
-material = SubResource("StandardMaterial3D_2rojl")
-
-[node name="Ground7" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4, -10.9, -42.5)
-use_collision = true
-size = Vector3(4, 5, 16)
-material = SubResource("StandardMaterial3D_2rojl")
-
-[node name="Ground10" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, -10.9, -32.5)
-use_collision = true
-size = Vector3(20, 5, 4)
-material = SubResource("StandardMaterial3D_2rojl")
-
-[node name="Ground9" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.6, -10.9, -38.5)
-use_collision = true
-size = Vector3(4, 5, 16)
-material = SubResource("StandardMaterial3D_2rojl")
-
-[node name="Ground8" type="CSGBox3D" parent="PoolArea/Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, -10.9, -48.5)
-use_collision = true
-size = Vector3(20, 5, 4)
-material = SubResource("StandardMaterial3D_2rojl")
+[node name="MainPool" parent="PoolArea" instance=ExtResource("10_qcbr2")]
 
 [node name="Player" parent="." instance=ExtResource("1_bo5vd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 10.4)
@@ -1037,18 +950,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 10.4)
 [node name="DEBUG" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vibar")
 script = ExtResource("13_0223l")
-
-[node name="PalmTree" parent="." instance=ExtResource("2_kihij")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.3444, -2, -35.1124)
-
-[node name="PalmTree2" parent="." instance=ExtResource("2_kihij")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3444, -3, -32.1124)
-
-[node name="PalmTree3" parent="." instance=ExtResource("2_kihij")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6556, -2, -50.1124)
-
-[node name="PalmTree4" parent="." instance=ExtResource("2_kihij")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6556, -3, -46.1124)
 
 [connection signal="interacted" from="LockerRoom/Collectable" to="LockerRoom" method="_on_collectable_interacted"]
 

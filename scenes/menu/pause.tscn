@@ -99,7 +99,7 @@ _data = {
 "show": SubResource("Animation_lis2g")
 }
 
-[node name="PauseMenu" type="Control" node_paths=PackedStringArray("scroll_background", "master_volume_slider")]
+[node name="PauseMenu" type="Control" node_paths=PackedStringArray("scroll_background", "master_volume_slider", "brightness_slider")]
 process_mode = 3
 modulate = Color(1, 1, 1, 0)
 layout_mode = 3
@@ -111,6 +111,7 @@ grow_vertical = 2
 script = ExtResource("1_hycd5")
 scroll_background = NodePath("Background")
 master_volume_slider = NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VolumeSlider")
+brightness_slider = NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/BrightnessSlider")
 
 [node name="Background" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0.372549)
@@ -191,6 +192,25 @@ value = 50.0
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_aucbk")
 
+[node name="Graphics" type="Label" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Graphics"
+
+[node name="HSeparator5" type="HSeparator" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Brightness" type="Label" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Brightness
+"
+
+[node name="HSeparator4" type="HSeparator" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BrightnessSlider" type="HSlider" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+value = 50.0
+
 [node name="PaddingBottom" type="Control" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -209,3 +229,4 @@ libraries = {
 }
 
 [connection signal="value_changed" from="MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VolumeSlider" to="." method="_on_master_volume_changed"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/BrightnessSlider" to="." method="_on_brightness_changed"]
