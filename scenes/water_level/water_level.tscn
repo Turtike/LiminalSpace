@@ -1,17 +1,25 @@
-[gd_scene load_steps=27 format=3 uid="uid://c1gwks6y6hcdt"]
+[gd_scene load_steps=40 format=3 uid="uid://c1gwks6y6hcdt"]
 
 [ext_resource type="PackedScene" uid="uid://cb5py51fx6kbe" path="res://scenes/player.tscn" id="1_bo5vd"]
 [ext_resource type="PackedScene" uid="uid://c8ioqv7yy70el" path="res://scenes/water_level/environment/locker.tscn" id="1_bu0f7"]
 [ext_resource type="Script" path="res://scenes/water_level/locker_room_event.gd" id="1_kabkl"]
 [ext_resource type="Script" path="res://scripts/flicker.gd" id="1_vrses"]
-[ext_resource type="AudioStream" uid="uid://drmwhih7jv2cd" path="res://sounds/secret.wav" id="2_v67ae"]
+[ext_resource type="AudioStream" uid="uid://1kfhhmadwvxe" path="res://sounds/platform_reverb.wav" id="2_jofr2"]
 [ext_resource type="PackedScene" uid="uid://cbdcc8kcb87ky" path="res://scenes/water_level/environment/locker_door_left.tscn" id="2_ytu5h"]
 [ext_resource type="PackedScene" uid="uid://bamjr27weq6br" path="res://scenes/world_object/door.tscn" id="3_bggyu"]
 [ext_resource type="Script" path="res://scenes/interactable_scenes/interactable_obj.gd" id="3_brnjj"]
 [ext_resource type="PackedScene" uid="uid://c4qq4sxjo2o4y" path="res://scenes/water_level/environment/locker_door_right.tscn" id="3_nlerh"]
 [ext_resource type="PackedScene" uid="uid://c7k22vd5b0464" path="res://scenes/water_level/environment/left_pool.tscn" id="9_2t3rq"]
+[ext_resource type="PackedScene" uid="uid://b1dcu7u45nr31" path="res://scenes/water_level/environment/enterance.tscn" id="9_gme52"]
 [ext_resource type="PackedScene" uid="uid://cowstm28dcnss" path="res://scenes/water_level/environment/main_pool.tscn" id="10_qcbr2"]
+[ext_resource type="Material" uid="uid://bqi5cnohe0alv" path="res://shaders/water_shader_material.tres" id="11_5b571"]
+[ext_resource type="Environment" uid="uid://ddamkn0x51jo1" path="res://scenes/water_level/environment.tres" id="12_0tuql"]
+[ext_resource type="Script" path="res://scripts/respawn_hazard.gd" id="12_7val4"]
 [ext_resource type="Script" path="res://scenes/water_level/debug.gd" id="13_0223l"]
+[ext_resource type="Script" path="res://scenes/water_level/platform.gd" id="14_o45si"]
+[ext_resource type="AudioStream" uid="uid://5sbvvc8q6ou0" path="res://sounds/ambient_hum.wav" id="17_upkxh"]
+[ext_resource type="AudioStream" uid="uid://bpahkbu7nol6v" path="res://sounds/ambient_drips.wav" id="18_6x5od"]
+[ext_resource type="AudioStream" uid="uid://cyoqxti1ecdn" path="res://sounds/waterfall.wav" id="19_mss3h"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yj2o3"]
 albedo_color = Color(0.81, 0.36774, 0.1782, 1)
@@ -36,6 +44,15 @@ albedo_color = Color(0.47, 1, 0.47, 0.352941)
 metallic = 0.15
 metallic_specular = 0.55
 roughness = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4bxlb"]
+albedo_color = Color(0.45, 0.423, 0.423, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ceaaj"]
+size = Vector3(2, 3, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qd1ul"]
+size = Vector3(1, 3.70892, 2.99548)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_8qxk1"]
 top_radius = 0.2
@@ -67,21 +84,29 @@ size = Vector3(2.54962, 1.30984, 2.08301)
 albedo_color = Color(0.1508, 0.394013, 0.58, 1)
 metallic_specular = 0.58
 
-[sub_resource type="Curve3D" id="Curve3D_d1036"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.0162992, 0, -0.0119996, 4.2, 1.9, -1.5, -4.2, -1.9, 1.5, -16, -3, 1.6, 2, -1, -6, -2, 1, 6, -31, -10, 14.6, -3, -4, 0, 3, 4, 0, -14, 1, 26.6, 4, -2, 5, -4, 2, -5, -16, 14, 14.6, -1, 1, 6, 1, -1, -6, -28, 15, -5.4, -3, 2, 2, 3, -2, -2, -23, 10, -17.4, 0, 0, 0, 0, 0, 0, -13, 9, -18.4),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
-}
-point_count = 9
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7k3sh"]
+albedo_color = Color(0.4032, 0.72, 0.66192, 1)
+metallic = 0.6
+metallic_specular = 0.2
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c04ta"]
+albedo_color = Color(0.73, 0.73, 0.73, 1)
+metallic = 0.79
+roughness = 0.4
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_m4bmi"]
+material = ExtResource("11_5b571")
+size = Vector2(45, 40)
+subdivide_width = 20
+subdivide_depth = 20
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yxnxd"]
+size = Vector3(81, 1, 91)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n5eaj"]
 albedo_color = Color(0.74, 1, 0.987, 1)
 metallic_specular = 0.58
-
-[sub_resource type="Environment" id="Environment_vibar"]
-background_mode = 1
-background_color = Color(1, 1, 1, 1)
-tonemap_exposure = 0.1
 
 [node name="WaterLevel" type="Node3D"]
 process_mode = 1
@@ -133,6 +158,42 @@ use_collision = true
 size = Vector3(29, 1, 30)
 material = SubResource("StandardMaterial3D_hpgrm")
 
+[node name="Ground2" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.61945, 0, 33.5)
+use_collision = true
+size = Vector3(32, 1, 37)
+material = SubResource("StandardMaterial3D_hpgrm")
+
+[node name="Ground3" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.88055, 7.5, 33)
+use_collision = true
+size = Vector3(7, 16, 38)
+material = SubResource("StandardMaterial3D_hpgrm")
+
+[node name="Ground6" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.11945, 16.5, 33)
+use_collision = true
+size = Vector3(39, 2, 38)
+material = SubResource("StandardMaterial3D_hpgrm")
+
+[node name="Ground7" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.11945, 13.5, 16.5)
+use_collision = true
+size = Vector3(39, 8, 5)
+material = SubResource("StandardMaterial3D_hpgrm")
+
+[node name="Ground4" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.1194, 7.5, 34.5)
+use_collision = true
+size = Vector3(7, 16, 35)
+material = SubResource("StandardMaterial3D_hpgrm")
+
+[node name="Ground5" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.11945, 7.5, 49)
+use_collision = true
+size = Vector3(7, 16, 38)
+material = SubResource("StandardMaterial3D_hpgrm")
+
 [node name="Wall2" type="CSGBox3D" parent="Lobby"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.71945, 4.5, 0.0136719)
 use_collision = true
@@ -140,15 +201,33 @@ size = Vector3(1, 8, 29.9727)
 material = SubResource("StandardMaterial3D_2rojl")
 
 [node name="Door" type="CSGBox3D" parent="Lobby/Wall2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.90015, -6.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.24006, -6.9)
+use_collision = true
+size = Vector3(1.4, 4.5199, 3.20215)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="DoorCutout" type="CSGBox3D" parent="Lobby/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.41113, -6.9)
+operation = 2
+size = Vector3(3.4, 4.17773, 2.39258)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Wall3" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.28055, 4.5, 16.9995)
+use_collision = true
+size = Vector3(29, 8, 0.001)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Door" type="CSGBox3D" parent="Lobby/Wall3"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9, -2.90015, 0.0999985)
 use_collision = true
 size = Vector3(1.4, 3.19971, 2.2)
 material = SubResource("StandardMaterial3D_2rojl")
 
-[node name="DoorCutout" type="CSGBox3D" parent="Lobby/Wall2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, -6.9)
+[node name="DoorCutout" type="CSGBox3D" parent="Lobby/Wall3"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9, -3, 0.9)
 operation = 2
-size = Vector3(3.4, 3, 1.8)
+size = Vector3(5, 3, 1.8)
 material = SubResource("StandardMaterial3D_2rojl")
 
 [node name="Glass" type="CSGBox3D" parent="Lobby"]
@@ -157,10 +236,46 @@ use_collision = true
 size = Vector3(26.645, 8, 1)
 material = SubResource("StandardMaterial3D_x1ebn")
 
+[node name="Glass2" type="CSGBox3D" parent="Lobby" groups=["beginning_blocker"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.09955, 4.5, -15.5)
+use_collision = true
+size = Vector3(26.645, 8, 1)
+material = SubResource("StandardMaterial3D_4bxlb")
+
+[node name="Glass3" type="MeshInstance3D" parent="Lobby" groups=["beginning_blocker"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1656, 2.93118, -6.92278)
+mesh = SubResource("BoxMesh_ceaaj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Lobby/Glass3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lobby/Glass3/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.585052, -0.00469971)
+shape = SubResource("BoxShape3D_qd1ul")
+
 [node name="Roof" type="CSGBox3D" parent="Lobby"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.38056, 9, -0.5)
 use_collision = true
 size = Vector3(28, 1, 31)
+
+[node name="Roof3" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.6194, -18, -4.5)
+use_collision = true
+size = Vector3(74, 1, 67)
+
+[node name="Roof4" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.1194, 5, 33)
+use_collision = true
+size = Vector3(33, 47, 8)
+
+[node name="Roof5" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.6194, -10, 4.5)
+use_collision = true
+size = Vector3(16, 17, 65)
+
+[node name="Roof6" type="CSGBox3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.6194, -10, -35.5)
+use_collision = true
+size = Vector3(42, 17, 15)
 
 [node name="Roof2" type="CSGBox3D" parent="Lobby"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.98056, 8.3, 0.5)
@@ -208,11 +323,17 @@ spot_range = 20.0
 spot_angle = 43.692
 
 [node name="Light6" type="SpotLight3D" parent="Lobby/Roof2" groups=["lobby_beginning_light"]]
-transform = Transform3D(0.853714, 2.27623e-08, -0.520741, 0.520741, -3.7317e-08, 0.853714, 0, -1, -4.37114e-08, 7.2, -0.3, 8.5)
+transform = Transform3D(0.853715, 2.27623e-08, -0.520741, 0.520741, -3.7317e-08, 0.853715, 0, -1, -4.37113e-08, 2.2, -0.3, 8.5)
 shadow_enabled = true
-spot_range = 12.706
+spot_range = 33.0
 spot_attenuation = -0.38
-spot_angle = 43.692
+spot_angle = 61.7923
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 11.0988, 36)
+light_energy = 4.924
+omni_range = 31.8
+omni_attenuation = 0.245
 
 [node name="LockerRoom" type="Node3D" parent="." node_paths=PackedStringArray("red_light", "normal_light", "collect_sfx", "collectable")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.4, -0.5, 0)
@@ -222,9 +343,10 @@ normal_light = [NodePath("NormalLight"), NodePath("NormalLight2")]
 collect_sfx = NodePath("CollectSFX")
 collectable = NodePath("Collectable")
 
-[node name="CollectSFX" type="AudioStreamPlayer" parent="LockerRoom"]
-stream = ExtResource("2_v67ae")
-bus = &"SFX"
+[node name="CollectSFX" type="AudioStreamPlayer3D" parent="LockerRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.8204, 2.99365, -15.7103)
+stream = ExtResource("2_jofr2")
+unit_size = 20.0
 
 [node name="Collectable" type="StaticBody3D" parent="LockerRoom"]
 collision_layer = 2
@@ -241,8 +363,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.22358, 4.28817, -6.57826)
 shape = SubResource("SphereShape3D_vtffs")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="LockerRoom/Collectable"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.94261, 4.50914, -6.94514)
-shadow_enabled = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.57754, 4.50914, -7.04982)
+light_energy = 0.5
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LockerRoom/Collectable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.89373, 4.50914, -7.04982)
+light_energy = 0.5
 
 [node name="Area3D" type="Area3D" parent="LockerRoom"]
 
@@ -277,11 +403,11 @@ omni_range = 25.0
 omni_attenuation = 1.005
 
 [node name="RedLight" type="SpotLight3D" parent="LockerRoom"]
-transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, -0.35, 8.2, -14.2)
+transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, -0.35, 8.2, -13.8574)
 light_color = Color(1, 0, 0, 1)
 light_energy = 21.05
 shadow_enabled = true
-spot_range = 14.6
+spot_range = 28.821
 spot_attenuation = -0.1
 spot_angle = 66.3219
 script = ExtResource("1_vrses")
@@ -290,7 +416,41 @@ script = ExtResource("1_vrses")
 light_color = Color(1, 0.266667, 0, 1)
 light_energy = 1.308
 light_indirect_energy = 16.0
+omni_range = 25.0
+omni_attenuation = 1.005
+
+[node name="RedLight3" type="SpotLight3D" parent="LockerRoom"]
+transform = Transform3D(1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, -0.35, 7.9946, -10.2827)
+light_color = Color(1, 0, 0, 1)
+light_energy = 21.05
 shadow_enabled = true
+spot_range = 20.252
+spot_attenuation = -0.1
+spot_angle = 66.3219
+script = ExtResource("1_vrses")
+active = false
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LockerRoom/RedLight3"]
+light_color = Color(1, 0.266667, 0, 1)
+light_energy = 1.308
+light_indirect_energy = 16.0
+omni_range = 10.216
+omni_attenuation = 1.005
+
+[node name="RedLight2" type="SpotLight3D" parent="LockerRoom"]
+transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, -0.35, 8.2, -51.0092)
+light_color = Color(1, 0, 0, 1)
+light_energy = 21.05
+shadow_enabled = true
+spot_range = 130.705
+spot_attenuation = -0.1
+spot_angle = 66.3219
+script = ExtResource("1_vrses")
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LockerRoom/RedLight2"]
+light_color = Color(1, 0.266667, 0, 1)
+light_energy = 1.308
+light_indirect_energy = 16.0
 omni_range = 25.0
 omni_attenuation = 1.005
 
@@ -811,9 +971,9 @@ size = Vector3(10, 9, 1.2)
 material = SubResource("StandardMaterial3D_2rojl")
 
 [node name="DoorCutout" type="CSGBox3D" parent="LockerRoom/Geometry/Wall3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.475, -0.0999994)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.226072, 1.79293, -0.0999994)
 operation = 2
-size = Vector3(3.4, 3.95, 2.2)
+size = Vector3(6.01056, 1.31414, 2.2)
 material = SubResource("StandardMaterial3D_2rojl")
 
 [node name="Wall4" type="CSGBox3D" parent="LockerRoom/Geometry"]
@@ -822,19 +982,24 @@ use_collision = true
 size = Vector3(0.4, 9, 30)
 material = SubResource("StandardMaterial3D_2rojl")
 
-[node name="Door3" parent="LockerRoom/Geometry/Wall4" instance=ExtResource("2_ytu5h")]
+[node name="Door3" type="Node3D" parent="LockerRoom/Geometry/Wall4"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.148613, -4.42217, 1.01683)
-push_forward = NodePath("")
-push_back = NodePath("")
 
-[node name="DoorArea" parent="LockerRoom/Geometry/Wall4/Door3" index="2"]
-visible = false
+[node name="DoorPivot" type="Node3D" parent="LockerRoom/Geometry/Wall4/Door3"]
 
-[node name="DoorPushForward" parent="LockerRoom/Geometry/Wall4/Door3" index="3"]
-visible = false
+[node name="Door" type="CSGBox3D" parent="LockerRoom/Geometry/Wall4/Door3/DoorPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.885449, 1.86719, -0.066584)
+use_collision = true
+size = Vector3(1.7376, 3.74246, 0.0964935)
+material = SubResource("StandardMaterial3D_7k3sh")
 
-[node name="DoorPushBack" parent="LockerRoom/Geometry/Wall4/Door3" index="4"]
-visible = false
+[node name="Door2" type="CSGBox3D" parent="LockerRoom/Geometry/Wall4/Door3/DoorPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3097, 1.96427, -0.066584)
+size = Vector3(0.415601, 1.55451, 0.148682)
+material = SubResource("StandardMaterial3D_c04ta")
+
+[node name="Timer" type="Timer" parent="LockerRoom/Geometry/Wall4/Door3"]
+one_shot = true
 
 [node name="DoorFrame" type="CSGBox3D" parent="LockerRoom/Geometry/Wall4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.45, 1.9)
@@ -865,12 +1030,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.137072, 9, 0.214893)
 use_collision = true
 size = Vector3(9.6, 1, 30.2298)
 
-[node name="Enterance" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 10.4)
-
-[node name="Path3D" type="Path3D" parent="Enterance"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, -1, -17)
-curve = SubResource("Curve3D_d1036")
+[node name="Enterance" parent="." instance=ExtResource("9_gme52")]
 
 [node name="PoolArea" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 7.8, 0.5)
@@ -888,6 +1048,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.1, -8.3, -64)
 [node name="Outside" type="Node3D" parent="PoolArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, -40)
 
+[node name="Water2" type="MeshInstance3D" parent="PoolArea/Outside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, -13, 49)
+mesh = SubResource("PlaneMesh_m4bmi")
+skeleton = NodePath("../../MainPool/Layout")
+
+[node name="RespawnHazard" type="Area3D" parent="PoolArea/Outside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, -13, 44)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("12_7val4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PoolArea/Outside/RespawnHazard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -1, -6)
+shape = SubResource("BoxShape3D_yxnxd")
+
+[node name="Water3" type="MeshInstance3D" parent="PoolArea/Outside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, -13, 9)
+mesh = SubResource("PlaneMesh_m4bmi")
+skeleton = NodePath("../../MainPool/Layout")
+
 [node name="Ground19" type="CSGBox3D" parent="PoolArea/Outside"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.4, 14.2, 2.5)
 use_collision = true
@@ -901,15 +1081,21 @@ size = Vector3(7, 30, 12)
 material = SubResource("StandardMaterial3D_2rojl")
 
 [node name="Ground25" type="CSGBox3D" parent="PoolArea/Outside"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.1, 14.2, 25.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.1, 14.2, 48.5)
 use_collision = true
-size = Vector3(1, 30, 26)
+size = Vector3(1, 30, 72)
 material = SubResource("StandardMaterial3D_2rojl")
 
 [node name="Ground22" type="CSGBox3D" parent="PoolArea/Outside"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.4, 14.2, -29.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.2662, 14.2, -29.5)
 use_collision = true
-size = Vector3(4, 30, 62)
+size = Vector3(18.2676, 30, 62)
+material = SubResource("StandardMaterial3D_2rojl")
+
+[node name="Ground26" type="CSGBox3D" parent="PoolArea/Outside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.3869, 0.658318, -29.5)
+use_collision = true
+size = Vector3(20.0261, 2.91664, 62)
 material = SubResource("StandardMaterial3D_2rojl")
 
 [node name="Ground20" type="CSGBox3D" parent="PoolArea/Outside"]
@@ -944,15 +1130,123 @@ material = SubResource("StandardMaterial3D_2rojl")
 
 [node name="MainPool" parent="PoolArea" instance=ExtResource("10_qcbr2")]
 
+[node name="Platform1" type="CSGBox3D" parent="PoolArea" groups=["platform_1"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3265, -16.76, -40.8598)
+use_collision = true
+size = Vector3(0.903516, 4.00098, 11.8316)
+script = ExtResource("14_o45si")
+target_pos = Vector3(17.3265, -10.5609, -40.8598)
+
+[node name="Platform2" type="CSGBox3D" parent="PoolArea" groups=["platform_2"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8705, -20.5801, -40.8598)
+use_collision = true
+size = Vector3(0.903516, 4.00098, 11.8316)
+script = ExtResource("14_o45si")
+target_pos = Vector3(14.8705, -10.5609, -40.8598)
+
 [node name="Player" parent="." instance=ExtResource("1_bo5vd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 10.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.72663, 2.4562, 39.4031)
 
 [node name="DEBUG" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_vibar")
+environment = ExtResource("12_0tuql")
 script = ExtResource("13_0223l")
 
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.3251, 5, -6.73316)
+stream = ExtResource("17_upkxh")
+autoplay = true
+bus = &"Ambience"
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.3521, 5, -15.1042)
+stream = ExtResource("18_6x5od")
+autoplay = true
+bus = &"Ambience"
+
+[node name="AudioStreamPlayer3D4" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(0.999998, -0.00202458, 0, 0.00202458, 0.999998, 0, 0, 0, 1, -1.56051, 5, -51.7988)
+stream = ExtResource("18_6x5od")
+autoplay = true
+bus = &"Ambience"
+
+[node name="AudioStreamPlayer3D5" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(0.98608, 0.16627, 0, -0.16627, 0.98608, 0, 0, 0, 1, 2.84922, 3.54351, -76.2527)
+stream = ExtResource("19_mss3h")
+autoplay = true
+bus = &"Ambience"
+
+[node name="AudioStreamPlayer3D3" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.44083, -6.93643, -40.8661)
+stream = ExtResource("2_jofr2")
+autoplay = true
+bus = &"Ambience"
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(-0.00805368, -0.989445, 0.144685, -0.0549909, 0.144909, 0.987916, -0.998454, 0, -0.0555775, 11.4897, -0.848838, -39.7144)
+text = "Game End"
+
+[node name="Label3D2" type="Label3D" parent="."]
+transform = Transform3D(-0.00805368, -0.989445, 0.144685, -0.0549909, 0.144909, 0.987916, -0.998454, 0, -0.0555775, 11.4897, -0.848838, -41.604)
+text = "Game End"
+
+[node name="Label3D3" type="Label3D" parent="."]
+transform = Transform3D(-0.00805368, -0.989445, 0.144685, -0.0549909, 0.144909, 0.987916, -0.998454, 0, -0.0555775, 11.4897, -0.848838, -43.798)
+text = "Game End"
+
+[node name="Label3D4" type="Label3D" parent="."]
+transform = Transform3D(-0.998379, -0.0225342, -0.052268, -0.0549909, 0.144909, 0.987916, -0.0146878, 0.989188, -0.145913, 9.97564, -0.848838, -45.6625)
+text = "Game End"
+
+[node name="Label3D5" type="Label3D" parent="."]
+transform = Transform3D(-0.998379, -0.0225342, -0.052268, -0.0549909, 0.144909, 0.987916, -0.0146878, 0.989188, -0.145913, 7.18447, -0.848838, -45.6625)
+text = "Game End"
+
+[node name="Label3D6" type="Label3D" parent="."]
+transform = Transform3D(-0.998379, -0.0225342, -0.052268, -0.0549909, 0.144909, 0.987916, -0.0146878, 0.989188, -0.145913, 3.63392, -0.848838, -45.6625)
+text = "Game End"
+
+[node name="Label3D7" type="Label3D" parent="."]
+transform = Transform3D(-0.998379, -0.0225342, -0.052268, -0.0549909, 0.144909, 0.987916, -0.0146878, 0.989188, -0.145913, 1.0756, -0.848838, -45.6625)
+text = "Game End"
+
+[node name="Label3D8" type="Label3D" parent="."]
+transform = Transform3D(-0.998379, -0.0225342, -0.052268, -0.0549909, 0.144909, 0.987916, -0.0146878, 0.989188, -0.145913, -2.71572, -0.848838, -45.6625)
+text = "Game End"
+
+[node name="Label3D9" type="Label3D" parent="."]
+transform = Transform3D(0.0841095, 0.986568, -0.140029, -0.0549909, 0.144909, 0.987916, 0.994938, -0.0753927, 0.0664405, -3.49185, -0.848838, -43.5166)
+text = "Game End"
+
+[node name="Label3D10" type="Label3D" parent="."]
+transform = Transform3D(0.0841095, 0.986568, -0.140029, -0.0549909, 0.144909, 0.987916, 0.994938, -0.0753927, 0.0664405, -3.49185, -0.848838, -40.8856)
+text = "Game End"
+
+[node name="Label3D11" type="Label3D" parent="."]
+transform = Transform3D(0.0841095, 0.986568, -0.140029, -0.0549909, 0.144909, 0.987916, 0.994938, -0.0753927, 0.0664405, -3.49185, -0.848838, -38.1107)
+text = "Game End"
+
+[node name="Label3D12" type="Label3D" parent="."]
+transform = Transform3D(0.0841095, 0.986568, -0.140029, -0.0549909, 0.144909, 0.987916, 0.994938, -0.0753927, 0.0664405, -3.49185, -0.848838, -35.8562)
+text = "Game End"
+
+[node name="Label3D13" type="Label3D" parent="."]
+transform = Transform3D(0.998452, 0.016284, 0.0531888, -0.0549909, 0.144909, 0.987916, 0.00837968, -0.989311, 0.14558, -2.11657, -0.848838, -34.6448)
+text = "Game End"
+
+[node name="Label3D14" type="Label3D" parent="."]
+transform = Transform3D(0.998452, 0.016284, 0.0531888, -0.0549909, 0.144909, 0.987916, 0.00837968, -0.989311, 0.14558, 1.73634, -0.848838, -34.6448)
+text = "Thanks for Playing !"
+
+[node name="Label3D15" type="Label3D" parent="."]
+transform = Transform3D(0.998452, 0.016284, 0.0531888, -0.0549909, 0.144909, 0.987916, 0.00837968, -0.989311, 0.14558, 9.86709, -0.848838, -34.6448)
+text = "Game End"
+
+[node name="Label3D16" type="Label3D" parent="."]
+transform = Transform3D(-0.190095, -0.972835, 0.132116, -0.0549909, 0.144909, 0.987916, -0.980224, 0.180533, -0.0810436, 11.3375, -0.848838, -36.6067)
+text = "Game End"
+
 [connection signal="interacted" from="LockerRoom/Collectable" to="LockerRoom" method="_on_collectable_interacted"]
+[connection signal="timeout" from="LockerRoom/Geometry/Wall4/Door3/Timer" to="LockerRoom/Geometry/Wall4/Door3" method="_on_timer_timeout"]
 
 [editable path="LockerRoom/Lockers2/Locker20/Door"]
-[editable path="LockerRoom/Geometry/Wall4/Door3"]
 [editable path="Player"]

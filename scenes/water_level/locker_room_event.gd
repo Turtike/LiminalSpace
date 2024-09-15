@@ -2,7 +2,7 @@ extends Node3D
 
 @export var red_light: Node3D
 @export var normal_light: Array[Node3D]
-@export var collect_sfx: AudioStreamPlayer
+@export var collect_sfx: AudioStreamPlayer3D
 @export var collectable: Interactable
 
 func _ready() -> void:
@@ -25,6 +25,11 @@ func _on_collectable_interacted(body: Variant) -> void:
 		light.visible = true
 	collect_sfx.play()
 	collectable.visible = false
+	collectable.set_collision_layer_value(2, false)
+	for node in get_tree().get_nodes_in_group("beginning_blocker"):
+		node.visible = false
+		node.queue_free()
+		
 	for node in get_tree().get_nodes_in_group("lobby_beginning_light"):
 		node.visible = false
 	for node in get_tree().get_nodes_in_group("lobby_lights"):

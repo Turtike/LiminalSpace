@@ -1,0 +1,236 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1dcu7u45nr31"]
+
+[ext_resource type="PackedScene" uid="uid://38p260e0d33c" path="res://scenes/gravity_path/gravity_path.tscn" id="2_m7kxm"]
+[ext_resource type="PackedScene" uid="uid://bofj3ngfhiyqw" path="res://scenes/gravity_path/gravity_path_segment.tscn" id="3_8fpxh"]
+
+[sub_resource type="Curve3D" id="Curve3D_d1036"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.0162992, 0, -0.0119996, 4.2, 1.9, -1.5, -4.2, -1.9, 1.5, -16, -3, 1.6, 2, -1, -6, -2, 1, 6, -31, -10, 14.6, -3, -4, 0, 3, 4, 0, -14, 1, 26.6, 4, -2, 5, -4, 2, -5, -16, 14, 14.6, -1, 1, 6, 1, -1, -6, -28, 15, -5.4, -3, 2, 2, 3, -2, -2, -23, 10, -17.4, 0, 0, 0, 0, 0, 0, -13, 9, -18.4),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_obbbl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m200b"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_al78d"]
+size = Vector3(8, 5.5, 4)
+
+[node name="Enterance" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 10.4)
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, -1, -17)
+curve = SubResource("Curve3D_d1036")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+top_level = true
+use_collision = true
+polygon = PackedVector2Array(-3, 0, -3, 4, 3, 4, 3, 0, 2, 0, 2, 3, -2, 3, -2, 0)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_obbbl")
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="."]
+top_level = true
+use_collision = true
+polygon = PackedVector2Array(-3, -1, -3, 0, 3, 0, 3, -1)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_m200b")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.5, 0.5, -17)
+light_color = Color(1, 0.991, 0.73, 1)
+light_energy = 16.0
+omni_range = 26.39
+omni_attenuation = 1.242
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.5, 14.5, -14.5)
+light_color = Color(1, 0.991, 0.73, 1)
+light_energy = 16.0
+omni_range = 26.39
+omni_attenuation = 1.242
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5, 7, -36.5)
+light_color = Color(1, 0.991, 0.73, 1)
+light_energy = 16.0
+omni_range = 26.39
+omni_attenuation = 1.242
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 9.5, -32.5)
+light_color = Color(1, 0.991, 0.73, 1)
+light_energy = 16.0
+omni_range = 26.39
+omni_attenuation = 1.242
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, -2, 7.23686)
+light_color = Color(1, 0.991, 0.73, 1)
+light_energy = 16.0
+omni_range = 26.39
+omni_attenuation = 1.242
+
+[node name="OmniLight3D8" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5, 8, 5.23686)
+light_color = Color(1, 0.991, 0.73, 1)
+light_energy = 16.0
+omni_range = 26.39
+omni_attenuation = 1.242
+
+[node name="OmniLight3D9" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 1.5, 8.73686)
+light_color = Color(1, 0.991, 0.73, 1)
+light_energy = 16.0
+omni_range = 26.39
+omni_attenuation = 1.242
+
+[node name="OmniLight3D10" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.5, 14, -7.26314)
+light_color = Color(1, 0.991, 0.73, 1)
+light_energy = 16.0
+omni_range = 9.156
+omni_attenuation = 1.242
+
+[node name="OmniLight3D6" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.5, -8, -4.5)
+light_color = Color(1, 0.991, 0.73, 1)
+light_energy = 16.0
+omni_range = 26.39
+omni_attenuation = 1.242
+
+[node name="OmniLight3D7" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.5, -2, -15.5)
+light_color = Color(1, 0.991, 0.73, 1)
+light_energy = 16.0
+omni_range = 26.39
+omni_attenuation = 1.242
+
+[node name="NormalGravity" parent="." instance=ExtResource("3_8fpxh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.5, 6.5, -36)
+
+[node name="CollisionShape3D" parent="NormalGravity" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.71661e-05, 0.25, -1.33514e-05)
+shape = SubResource("BoxShape3D_al78d")
+
+[node name="GravityPath" parent="." node_paths=PackedStringArray("path") instance=ExtResource("2_m7kxm")]
+path = NodePath("../Path3D")
+segment_size = Vector3(5, 2, 4)
+
+[node name="GravityPathSegment" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(0.592868, 0, 0.8053, 0, 1, 0, -0.8053, 0, 0.592868, -14, -1, -17)
+
+[node name="@Area3D@89193" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.0389378, -0.128247, 0.990978, -0.0357577, 0.991273, 0.12688, -0.998602, -0.0304947, -0.0431838, -17.9687, -1.44857, -16.8974)
+
+[node name="@Area3D@89194" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.0699073, -0.161977, 0.984315, -0.0402667, 0.986383, 0.159458, -0.996741, -0.0284879, -0.0754776, -21.921, -2.01755, -16.6661)
+
+[node name="@Area3D@89195" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.120175, -0.218264, 0.968462, -0.0498792, 0.975627, 0.21369, -0.991499, -0.0226261, -0.128132, -25.8321, -2.75201, -16.2713)
+
+[node name="@Area3D@89196" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.260199, -0.368432, 0.892499, -0.0930019, 0.929603, 0.356635, -0.961066, 0.0097919, -0.276146, -29.6039, -3.83199, -15.5306)
+
+[node name="@Area3D@89197" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.391634, -0.467943, 0.792245, -0.15778, 0.882423, 0.44321, -0.906492, 0.0485757, -0.419419, -32.9208, -5.52003, -14.0797)
+
+[node name="@Area3D@89198" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.459081, -0.471118, 0.753188, -0.19626, 0.880644, 0.431217, -0.866445, 0.0501426, -0.496749, -36.0078, -7.28103, -12.2469)
+
+[node name="@Area3D@89199" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.533624, -0.451667, 0.715012, -0.237939, 0.891476, 0.38556, -0.811561, 0.0356143, -0.583182, -38.9466, -8.92627, -10.0925)
+
+[node name="@Area3D@89200" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.63472, -0.408767, 0.655775, -0.288091, 0.912626, 0.29003, -0.717032, -0.0048354, -0.697024, -41.6985, -10.2999, -7.54187)
+
+[node name="@Area3D@89201" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.801107, -0.327744, 0.500811, -0.340244, 0.93777, 0.0694418, -0.492405, -0.114768, -0.862766, -44.0641, -11.0812, -4.43313)
+
+[node name="@Area3D@89202" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.945681, -0.269348, -0.182043, -0.207987, 0.931637, -0.297981, 0.249859, -0.243933, -0.937053, -45.1139, -10.5935, -0.72006)
+
+[node name="@Area3D@89203" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.699755, -0.278702, -0.657776, -0.0115369, 0.925049, -0.379674, 0.71429, -0.25809, -0.650522, -43.2035, -9.18195, 2.43229)
+
+[node name="@Area3D@89204" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.56408, -0.297645, -0.770209, 0.062038, 0.914859, -0.398979, 0.823386, -0.272838, -0.497588, -40.311, -7.62293, 4.70256)
+
+[node name="@Area3D@89205" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.485578, -0.325192, -0.811458, 0.102551, 0.900638, -0.422298, 0.868157, -0.288274, -0.403981, -37.1355, -5.98379, 6.49534)
+
+[node name="@Area3D@89206" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.427927, -0.369414, -0.824871, 0.133451, 0.876827, -0.461915, 0.893907, -0.307745, -0.325919, -33.8549, -4.22342, 7.95452)
+
+[node name="@Area3D@89207" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.376826, -0.460834, -0.803513, 0.164592, 0.820342, -0.547675, 0.911543, -0.33863, -0.233277, -30.5803, -2.2305, 9.08745)
+
+[node name="@Area3D@89208" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.270398, -0.796537, -0.540753, 0.28059, 0.472091, -0.835703, 0.920953, -0.377703, 0.0958475, -27.6975, 0.434387, 9.57395)
+
+[node name="@Area3D@89209" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.160831, -0.977056, -0.139625, 0.546658, 0.0296026, -0.836833, 0.821765, -0.210916, 0.529354, -26.4012, 3.87643, 8.15963)
+
+[node name="@Area3D@89210" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.156921, -0.983256, 0.0926432, 0.66124, -0.174277, -0.72965, 0.733578, -0.0532376, 0.677516, -26.342, 7.01137, 5.69907)
+
+[node name="@Area3D@89211" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.174894, -0.94759, 0.267366, 0.728211, -0.307257, -0.61262, 0.662662, 0.0875555, 0.743783, -27.0692, 9.70432, 2.84332)
+
+[node name="@Area3D@89212" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.207629, -0.870507, 0.446215, 0.777936, -0.423489, -0.46419, 0.593049, 0.250748, 0.765127, -28.4885, 11.8768, -0.1887)
+
+[node name="@Area3D@89213" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.273854, -0.736152, 0.618938, 0.820784, -0.514324, -0.248564, 0.501316, 0.439945, 0.745071, -30.663, 13.296, -3.21205)
+
+[node name="@Area3D@89214" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.33144, -0.69117, 0.642209, 0.83802, -0.528377, -0.136164, 0.433441, 0.493053, 0.754339, -33.2059, 14.0401, -6.20585)
+
+[node name="@Area3D@89215" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.375669, -0.68384, 0.625488, 0.845114, -0.529768, -0.0716131, 0.380335, 0.501706, 0.77694, -35.7527, 14.4515, -9.26174)
+
+[node name="@Area3D@89216" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.420337, -0.699102, 0.578423, 0.848488, -0.528738, -0.0224606, 0.321537, 0.481344, 0.815427, -38.1724, 14.6377, -12.4401)
+
+[node name="@Area3D@89217" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.477666, -0.73765, 0.477187, 0.847914, -0.529247, 0.030639, 0.229949, 0.419249, 0.878267, -40.3093, 14.6245, -15.8182)
+
+[node name="@Area3D@89218" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.546622, -0.801874, 0.241254, 0.835612, -0.541048, 0.0949692, 0.0543766, 0.253507, 0.965804, -41.8205, 14.381, -19.5014)
+
+[node name="@Area3D@89219" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.55465, -0.814709, -0.169153, 0.793554, -0.579066, 0.186961, -0.250269, -0.0305337, 0.967695, -41.8263, 13.8169, -23.4195)
+
+[node name="@Area3D@89220" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.529788, -0.816769, -0.228504, 0.762789, -0.576644, 0.292636, -0.370781, -0.0192656, 0.92852, -41.0545, 12.8679, -27.2251)
+
+[node name="@Area3D@89221" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.469537, -0.799905, -0.373747, 0.690833, -0.596451, 0.408652, -0.549804, -0.0663196, 0.832657, -39.8895, 11.4675, -30.7778)
+
+[node name="@Area3D@89222" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.306429, -0.705346, -0.639209, 0.542993, -0.681067, 0.49123, -0.781831, -0.196559, 0.591696, -37.8936, 9.63848, -33.6919)
+
+[node name="@Area3D@89223" parent="GravityPath" instance=ExtResource("3_8fpxh")]
+transform = Transform3D(-0.0977379, -0.275012, -0.95646, 0.435351, -0.876044, 0.207403, -0.894939, -0.396125, 0.20535, -34.6586, 8.09468, -35.3053)
+
+[editable path="NormalGravity"]

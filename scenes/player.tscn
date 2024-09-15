@@ -314,7 +314,7 @@ stream_1/stream = ExtResource("4_urq2u")
 stream_2/stream = ExtResource("5_7yr4d")
 stream_3/stream = ExtResource("6_n71rm")
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 4
 script = ExtResource("1_417cw")
 

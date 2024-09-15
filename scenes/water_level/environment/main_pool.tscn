@@ -1,9 +1,35 @@
-[gd_scene load_steps=6 format=3 uid="uid://cowstm28dcnss"]
+[gd_scene load_steps=18 format=3 uid="uid://cowstm28dcnss"]
 
+[ext_resource type="Script" path="res://scenes/water_level/environment/office_event.gd" id="1_52ci3"]
 [ext_resource type="PackedScene" uid="uid://8wffqncs5t2s" path="res://scenes/water_level/environment/tower.tscn" id="1_dggwj"]
 [ext_resource type="Material" uid="uid://bqi5cnohe0alv" path="res://shaders/water_shader_material.tres" id="1_nek5w"]
+[ext_resource type="AudioStream" uid="uid://1kfhhmadwvxe" path="res://sounds/platform_reverb.wav" id="2_fc45v"]
 [ext_resource type="Material" uid="uid://b0vn1vgi3ld4d" path="res://materials/pool_area_floor.tres" id="2_l2owi"]
 [ext_resource type="PackedScene" uid="uid://f56kse3kspb0" path="res://scenes/water_level/environment/palm_tree.tscn" id="2_xe764"]
+[ext_resource type="Script" path="res://scenes/interactable_scenes/interactable_button.gd" id="4_q3jnm"]
+[ext_resource type="AudioStream" uid="uid://ca0rso5ge8pq7" path="res://sounds/button_press.wav" id="5_ekbdq"]
+[ext_resource type="Script" path="res://scenes/world_object/respawn_area.gd" id="5_jgdsj"]
+[ext_resource type="Script" path="res://scripts/respawn_hazard.gd" id="5_of0be"]
+[ext_resource type="PackedScene" uid="uid://cbdcc8kcb87ky" path="res://scenes/water_level/environment/locker_door_left.tscn" id="7_krkby"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vep2t"]
+size = Vector3(0.305664, 0.142334, 0.914307)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1j5md"]
+albedo_color = Color(0.89, 0.89, 0.89, 1)
+metallic = 1.0
+metallic_specular = 0.29
+roughness = 0.45
+emission = Color(1, 0.978333, 0.35, 1)
+emission_energy_multiplier = 0.21
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qttrp"]
+albedo_color = Color(0.706455, 0.81, 0.7047, 1)
+metallic = 1.0
+metallic_specular = 0.29
+roughness = 0.45
+emission = Color(1, 0.978333, 0.35, 1)
+emission_energy_multiplier = 0.21
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_pymsj"]
 material = ExtResource("1_nek5w")
@@ -11,49 +37,242 @@ size = Vector2(45, 40)
 subdivide_width = 20
 subdivide_depth = 20
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_fnxkh"]
+size = Vector3(67.5, 5, 51.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rwjes"]
+size = Vector3(48.5, 15.5, 34)
+
 [node name="MainPool" type="Node3D"]
+
+[node name="Office" type="Node3D" parent="." node_paths=PackedStringArray("switch", "pool_platforms")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, -40)
+script = ExtResource("1_52ci3")
+switch = NodePath("SwitchThing")
+pool_platforms = NodePath("PoolPlatforms")
+
+[node name="MoveSnd" type="AudioStreamPlayer3D" parent="Office"]
+transform = Transform3D(1, 0, 0, 0, 0.833192, -0.552984, 0, 0.552984, 0.833192, 8.47995, 3.33432, 9.94637)
+stream = ExtResource("2_fc45v")
+bus = &"SFX"
+
+[node name="Door" parent="Office" instance=ExtResource("7_krkby")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 33.3715, 1, 8.5)
+
+[node name="PoolPlatforms" type="Node3D" parent="Office"]
+transform = Transform3D(1, 0, 0, 0, 0.833192, -0.552984, 0, 0.552984, 0.833192, 30.4945, 3.78709, 22.3187)
+
+[node name="SwitchThing" type="StaticBody3D" parent="Office"]
+transform = Transform3D(1, 0, 0, 0, 0.833192, -0.552984, 0, 0.552984, 0.833192, 30.4945, 3.33432, 22.3187)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("4_q3jnm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Office/SwitchThing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00732422, -0.00231743, -0.287475)
+shape = SubResource("BoxShape3D_vep2t")
+
+[node name="Ground33" type="CSGBox3D" parent="Office/SwitchThing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.415791)
+cast_shadow = 0
+use_collision = true
+size = Vector3(0.241211, 0.0918579, 0.669189)
+material = SubResource("StandardMaterial3D_1j5md")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Office/SwitchThing"]
+stream = ExtResource("5_ekbdq")
+bus = &"SFX"
+
+[node name="Layout" type="Node3D" parent="Office"]
+
+[node name="Ground13" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.9, 4.7, 17)
+use_collision = true
+size = Vector3(1, 11, 15)
+material = ExtResource("2_l2owi")
+
+[node name="Ground14" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.9, 4.7, 14.5)
+use_collision = true
+size = Vector3(1, 11, 20)
+material = ExtResource("2_l2owi")
+
+[node name="Ground18" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.4, 4.7, 23.5)
+use_collision = true
+size = Vector3(12, 11, 2)
+material = ExtResource("2_l2owi")
+
+[node name="Ground32" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.0243, 10.7071, 16.6653)
+use_collision = true
+size = Vector3(12.7515, 1.06277, 15.6694)
+material = ExtResource("2_l2owi")
+
+[node name="Ground19" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.521, 2.56499, 17.6776)
+use_collision = true
+size = Vector3(4.92575, 0.237228, 2.86438)
+material = ExtResource("2_l2owi")
+
+[node name="Ground29" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(0.74536, 0, -0.666663, 0, 1, 0, 0.666663, 0, 0.74536, 26.8606, 2.79519, 17.8615)
+use_collision = true
+size = Vector3(0.7285, 0.237228, 0.983948)
+material = ExtResource("2_l2owi")
+
+[node name="Ground30" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(0.908348, 0, -0.418216, 0, 1, 0, 0.418216, 0, 0.908348, 26.8606, 3.02608, 17.8615)
+use_collision = true
+size = Vector3(0.7285, 0.237228, 0.983948)
+material = ExtResource("2_l2owi")
+
+[node name="Ground31" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(0.300439, 0, -0.953801, 0, 1, 0, 0.953801, 0, 0.300439, 28.5023, 2.69066, 17.7082)
+use_collision = true
+size = Vector3(1.46142, 0.0434189, 0.983948)
+material = ExtResource("2_l2owi")
+
+[node name="Ground28" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5327, 2.14016, 16.4532)
+cast_shadow = 0
+use_collision = true
+size = Vector3(4.17376, 0.606247, 0.121155)
+material = ExtResource("2_l2owi")
+
+[node name="Ground26" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.7852, 1.81868, 17.6776)
+cast_shadow = 0
+use_collision = true
+size = Vector3(0.397446, 1.28225, 2.86438)
+material = ExtResource("2_l2owi")
+
+[node name="Ground27" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.2635, 1.81868, 17.6776)
+cast_shadow = 0
+use_collision = true
+size = Vector3(0.397446, 1.28225, 2.86438)
+material = ExtResource("2_l2owi")
+
+[node name="Ground23" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.4305, 4.08365, 10.6977)
+use_collision = true
+size = Vector3(3.42314, 5.85538, 1.82547)
+material = ExtResource("2_l2owi")
+
+[node name="Ground24" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.4188, 4.08365, 20.8681)
+use_collision = true
+size = Vector3(3.42314, 5.85538, 1.82547)
+material = ExtResource("2_l2owi")
+
+[node name="Switch" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.4975, 3.31349, 22.2992)
+use_collision = true
+size = Vector3(1, 1.5, 0.5)
+material = SubResource("StandardMaterial3D_qttrp")
+
+[node name="Ground35" type="CSGBox3D" parent="Office/Layout/Switch"]
+cast_shadow = 0
+operation = 2
+use_collision = true
+size = Vector3(0.256836, 0.671875, 0.5)
+
+[node name="Shadow" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.4975, 3.76134, 22.2992)
+cast_shadow = 3
+use_collision = true
+size = Vector3(0.256836, 0.671875, 0.5)
+
+[node name="Ground20" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(0.952995, 0, -0.302985, 0, 1, 0, 0.302985, 0, 0.952995, 27.1923, 1.54689, 21.5574)
+use_collision = true
+size = Vector3(1.89346, 4.69379, 0.584625)
+material = ExtResource("2_l2owi")
+
+[node name="Ground21" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(0.952995, 0, -0.302985, 0, 1, 0, 0.302985, 0, 0.952995, 27.4713, 2.0254, 20.6319)
+cast_shadow = 0
+use_collision = true
+size = Vector3(1.89029, 0.464981, 1.35163)
+material = ExtResource("2_l2owi")
+
+[node name="Ground22" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(0.952995, 0, -0.302985, 0, 1, 0, 0.302985, 0, 0.952995, 27.6254, 1.48202, 20.1473)
+cast_shadow = 0
+use_collision = true
+size = Vector3(1.89029, 0.620274, 0.334508)
+material = ExtResource("2_l2owi")
+
+[node name="Ground16" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.4, 5.7, 9)
+use_collision = true
+size = Vector3(2, 9, 1)
+material = ExtResource("2_l2owi")
+
+[node name="Ground17" type="CSGBox3D" parent="Office/Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.4129, 7.53716, 9)
+use_collision = true
+size = Vector3(1.97418, 5.32568, 1)
+material = ExtResource("2_l2owi")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Office"]
+transform = Transform3D(1, 0, 0, 0, -0.100865, 0.9949, 0, -0.9949, -0.100865, 30.0821, 9.61237, 18.1394)
+light_color = Color(1, 0.924, 0.76, 1)
+light_energy = 14.886
+shadow_enabled = true
+spot_range = 18.5
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Office"]
+transform = Transform3D(1, 0, 0, 0, -0.100865, 0.9949, 0, -0.9949, -0.100865, 30.0821, 9.61237, 6.1834)
+light_color = Color(1, 0.924, 0.76, 1)
+light_energy = 14.886
+shadow_enabled = true
+spot_range = 18.5
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Office"]
+transform = Transform3D(1, 0, 0, 0, -0.15359, 0.988135, 0, -0.988135, -0.15359, 15.4433, 9.61237, 9.08365)
+light_color = Color(1, 0.924, 0.76, 1)
+light_energy = 14.886
+shadow_enabled = true
+spot_range = 27.1424
+spot_angle = 74.003
 
 [node name="Water" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, -40)
 mesh = SubResource("PlaneMesh_pymsj")
 skeleton = NodePath("../Layout")
 
+[node name="Ground12" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.4, -8.3, -25.5)
+use_collision = true
+size = Vector3(12, 1, 20)
+material = ExtResource("2_l2owi")
+
 [node name="Layout" type="Node3D" parent="."]
 
 [node name="Ground2" type="CSGBox3D" parent="Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.1, -9.3, -62.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.1, -13.8, -62.5)
 use_collision = true
-size = Vector3(5, 1, 76)
+size = Vector3(5, 10, 76)
 material = ExtResource("2_l2owi")
 
 [node name="Ground4" type="CSGBox3D" parent="Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4, -9.3, -62.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4, -13.8, -62.5)
 use_collision = true
-size = Vector3(4, 1, 76)
+size = Vector3(4, 10, 76)
 material = ExtResource("2_l2owi")
 
-[node name="Ground13" type="CSGBox3D" parent="Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.9, -4.3, -23)
+[node name="Ground5" type="CSGBox3D" parent="Layout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, -14.3, -57.5)
 use_collision = true
-size = Vector3(1, 11, 15)
-material = ExtResource("2_l2owi")
-
-[node name="Ground14" type="CSGBox3D" parent="Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.9, -4.3, -25.5)
-use_collision = true
-size = Vector3(1, 11, 20)
-material = ExtResource("2_l2owi")
-
-[node name="Ground18" type="CSGBox3D" parent="Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.4, -4.3, -16.5)
-use_collision = true
-size = Vector3(12, 11, 2)
+size = Vector3(41.5, 9, 2)
 material = ExtResource("2_l2owi")
 
 [node name="Ground15" type="CSGBox3D" parent="Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.4, -4.3, -31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.4307, -3.3, -31)
 use_collision = true
-size = Vector3(12, 11, 1)
+size = Vector3(8.0614, 9, 1)
 material = ExtResource("2_l2owi")
 
 [node name="Ground11" type="CSGBox3D" parent="Layout"]
@@ -68,22 +287,16 @@ use_collision = true
 size = Vector3(10, 1, 65)
 material = ExtResource("2_l2owi")
 
-[node name="Ground12" type="CSGBox3D" parent="Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.4, -8.3, -25.5)
-use_collision = true
-size = Vector3(12, 1, 20)
-material = ExtResource("2_l2owi")
-
 [node name="Ground6" type="CSGBox3D" parent="Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, -9.3, -20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, -13.8, -20)
 use_collision = true
-size = Vector3(49, 1, 9)
+size = Vector3(49, 10, 9)
 material = ExtResource("2_l2owi")
 
 [node name="Ground3" type="CSGBox3D" parent="Layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1, -13.9, -58.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, -19.4, -58.5)
 use_collision = true
-size = Vector3(57, 1, 86)
+size = Vector3(49, 1, 86)
 material = ExtResource("2_l2owi")
 
 [node name="Ground7" type="CSGBox3D" parent="Layout"]
@@ -124,3 +337,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0556, -9.8, -50.6124)
 
 [node name="PalmTree4" parent="." instance=ExtResource("2_xe764")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0556, -10.8, -46.6124)
+
+[node name="RespawnHazard" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("5_of0be")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RespawnHazard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, -20, -41.25)
+shape = SubResource("BoxShape3D_fnxkh")
+
+[node name="RespawnArea" type="Area3D" parent="." node_paths=PackedStringArray("spawn_location")]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("5_jgdsj")
+spawn_location = NodePath("SpawnLocation")
+
+[node name="SpawnLocation" type="Node3D" parent="RespawnArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.5, -19.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RespawnArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, -7.75, -37)
+shape = SubResource("BoxShape3D_rwjes")
+
+[node name="SpawnLocationOverride" type="Node3D" parent="." groups=["spawn_location_override"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.6655, 8.95739, -25.2784)
+top_level = true
+
+[connection signal="interacted" from="Office/SwitchThing" to="Office/SwitchThing" method="_on_interacted"]

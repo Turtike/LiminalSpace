@@ -8,9 +8,16 @@ extends Control
 @export var brightness_min: float = 0
 @export var brightness_max: float = 0.1
 
+var mouse_over: bool = false
 var player_camera: Camera3D
-
 var scroll_speed: float = 5
+
+func _on_mouse_entered():
+	mouse_over = true
+
+func _on_mouse_exited():
+	mouse_over = false
+
 
 func _ready() -> void:
 	var index = AudioServer.get_bus_index("Master")
@@ -23,13 +30,25 @@ func _ready() -> void:
 	if player_camera == null:
 		return
 	brightness_slider.ratio = inverse_lerp(brightness_min, brightness_max, player_camera.environment.background_energy_multiplier)
+	
+	get_tree().get_root().size_changed.connect(_on_window_resize)
 
+func _on_window_resize():
+	if !UserSettings.is_paused and !$AnimationPlayer.is_playing():
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel") and !$AnimationPlayer.is_playing():
-		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if event.is_action_pressed("click"):
+		if mouse_over and not UserSettings.is_paused:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+	if event.is_action_pressed("pause") and !$AnimationPlayer.is_playing():
+		if !UserSettings.is_paused:
+			UserSettings.is_paused = true
 			get_tree().paused = true
 			$AnimationPlayer.play("show")
 		else:
+			UserSettings.is_paused = false
 			get_tree().paused = false
 			$AnimationPlayer.play("hide")
 
